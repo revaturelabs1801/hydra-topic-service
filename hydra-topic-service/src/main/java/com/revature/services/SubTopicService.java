@@ -22,8 +22,6 @@ import com.revature.repository.SubtopicRepository;
 import com.revature.repository.SubtopicStatusRepository;
 import com.revature.repository.SubtopicTypeRepository;
 
-
-
 @Service
 public class SubTopicService {
 	
