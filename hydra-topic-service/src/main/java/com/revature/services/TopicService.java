@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.revature.model.Batch;
 import com.revature.model.TopicName;
 import com.revature.model.TopicWeek;
+import com.revature.repository.BatchRepository;
 import com.revature.repository.TopicNameRepository;
 import com.revature.repository.TopicWeekRepository;
 
@@ -19,8 +20,8 @@ public class TopicService {
 	  @Autowired
 	  TopicWeekRepository topicWeekRepository;
 
-	 /*@Autowired
-	  BatchRepository batchRepistory;*/
+	 @Autowired
+	  BatchRepository batchRepistory;
 
 	  @Autowired
 	  TopicNameRepository topicNameRepository;

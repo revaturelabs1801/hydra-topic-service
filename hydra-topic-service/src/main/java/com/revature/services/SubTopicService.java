@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.revature.model.Batch;
@@ -61,7 +62,7 @@ public class SubTopicService {
 	    st = subtopicNameRepository.findByid(subtopic);
 	    ss = subtopicStatusRepository.findByid(1);
 
-	    //s.setBatch(b);
+	    s.setBatch(b);
 	    s.setSubtopicName(st);
 	    s.setStatus(ss);
 	    s.setSubtopicDate(ts);
@@ -106,9 +107,9 @@ public class SubTopicService {
 	   * 
 	   * @author Michael Garza, Gary LaMountain
 	   */
-	 /* public Long getNumberOfSubtopics(int batchId) {
+	  public Long getNumberOfSubtopics(int batchId) {
 	    return subtopicRepository.countSubtopicsByBatchId(batchId);
-	  }*/
+	  }
 
 	  public List<SubtopicName> getAllSubtopics() {
 	    return subtopicNameRepository.findAll();
@@ -132,9 +133,9 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  /*public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
-	    return subtopicRepository.findByBatch(batchRepository.findById(batchId), pageRequest);
-	  }*/
+	  public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
+	    return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
+	  }
 
 	  /**
 	   * 
