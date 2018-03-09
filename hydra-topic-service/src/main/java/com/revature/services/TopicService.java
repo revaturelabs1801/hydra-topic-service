@@ -31,10 +31,10 @@ public class TopicService {
 	    Batch b;
 	    TopicName topicName;
 
-	    //b = batchRepistory.findById(batch);
+	    b = batchRepistory.findByid(batch);
 	    topicName = topicNameRepository.findByid(topicNameId);
 
-	    //topic.setBatch(b);
+	    topic.setBatch(b);
 	    topic.setTopic(topicName);
 	    topic.setWeekNumber(weekNumber);
 
@@ -45,9 +45,9 @@ public class TopicService {
 	    return topicWeekRepository.findByBatch(batch);
 	  }
 
-	  /*public List<TopicWeek> getTopicByBatchId(int batchId) {
-	    return topicWeekRepository.findByBatch(batchRepistory.findById(batchId));
-	  }*/
+	  public List<TopicWeek> getTopicByBatchId(int batchId) {
+	    return topicWeekRepository.findByBatch(batchRepistory.findByid(batchId));
+	  }
 
 	  public List<TopicName> getTopics() {
 	    return topicNameRepository.findAll();
