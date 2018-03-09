@@ -1,97 +1,64 @@
 package com.revature.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "Subtopic_Name")
+@Table(name = "Topic_Name")
 public class TopicName {
 
 	@Id
-	@Column(name = "Subtopic_Name_ID")
-	@SequenceGenerator(name = "SUBTOPIC_NAME_ID_SEQ", sequenceName = "SUBTOPIC_NAME_ID_SEQ", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBTOPIC_NAME_ID_SEQ")
+	@Column(name = "Topic_ID")
+	@SequenceGenerator(name = "TOPIC_NAME_ID_SEQ", sequenceName = "TOPIC_NAME_ID_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TOPIC_NAME_ID_SEQ")
 	private Integer id;
 
-	@Column(name = "Subtopic_Name")
+	@Column(name = "Topic_Name")
 	private String name;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Subtopic_Topic", referencedColumnName = "Topic_ID")
-	@Autowired
-	private TopicName topic;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Subtopic_Type", referencedColumnName = "Type_ID")
-	@Autowired
-	private TopicType type;
 
 	public TopicName() {
 		super();
 	}
 
-	public TopicName(Integer id, String name, TopicName topic, TopicType type) {
+	public TopicName(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.topic = topic;
-		this.type = type;
 	}
 
-	public TopicName(String name, TopicName topic, TopicType type) {
-		super();
+	public TopicName(String name) {
+		super(); //NOSONAR
 		this.name = name;
-		this.topic = topic;
-		this.type = type;
 	}
 
 	public Integer getId() {
 		return id;
-	}
+	}//NOSONAR
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}//NOSONAR
 
 	public String getName() {
 		return name;
-	}
+	}//NOSONAR
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public TopicName getTopic() {
-		return topic;
-	}
-
-	public void setTopic(TopicName topic) {
-		this.topic = topic;
-	}
-
-	public TopicType getType() {
-		return type;
-	}
-
-	public void setType(TopicType type) {
-		this.type = type;
-	}
+	}//NOSONAR
 
 	@Override
 	public String toString() {
-		return "TopicName [id=" + id + ", name=" + name + ", topic=" + topic + "]";
+		return "TopicName [id=" + id + ", name=" + name + "]";//NOSONAR
 	}
 
 }

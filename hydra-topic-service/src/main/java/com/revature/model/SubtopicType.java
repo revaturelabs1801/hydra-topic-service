@@ -12,32 +12,32 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "Subtopic_Status")
-public class TopicStatus {
+@Table(name = "Subtopic_Type")
+public class SubtopicType {
 
 	@Id
-	@Column(name = "Status_ID")
-	@SequenceGenerator(name = "Status_ID_SEQ", sequenceName = "Status_ID_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Status_ID_SEQ")
+	@Column(name = "Type_ID")
+	@SequenceGenerator(name = "Subtopic_Type_ID_SEQ", sequenceName = "Subtopic_Type_ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Subtopic_Type_ID_SEQ")
 	private Integer id;
 
-	@Column(name = "Status_Name")
+	@Column(name = "Type_Name")
 	private String name;
 
-	public TopicStatus() {
+	public SubtopicType() {
 		//Empty Because No Args
 	}
 
-	public TopicStatus(Integer id, String name) {
+	public SubtopicType(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public TopicStatus(String name) {
-		super();
+	public SubtopicType(String name) {
+		super();//NOSONAR
 		this.name = name;
-	}//NOSONAR
+	}
 
 	public Integer getId() {
 		return id;
@@ -57,7 +57,7 @@ public class TopicStatus {
 
 	@Override
 	public String toString() {
-		return "TopicStatus [id=" + id + ", name=" + name + "]";//NOSONAR
+		return "SubtopicType [id=" + id + ", name=" + name + "]";//NOSONAR
 	}
 
 }

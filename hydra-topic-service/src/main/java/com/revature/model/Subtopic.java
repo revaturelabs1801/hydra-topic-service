@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "SUBTOPIC")
 @Component
-public class Topic {
+public class Subtopic {
 
 	@Id
 	@Column(name = "Subtopic_Id")
@@ -30,36 +30,39 @@ public class Topic {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SUBTOPIC_NAME_ID", referencedColumnName = "SUBTOPIC_NAME_ID")
 	@Autowired
-	private TopicName topicName;
+	private SubtopicName subtopicName;
 
-
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "SUBTOPIC_BATCH_ID", referencedColumnName = "BATCH_ID")
+	@Autowired
+	private Batch batch;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SUBTOPIC_STATUS_ID", referencedColumnName = "STATUS_ID")
 	@Autowired
-	private TopicStatus status;
+	private SubtopicStatus status;
 
 	@Column(name = "Subtopic_Date")
 	private Timestamp subtopicDate;
 
-	public Topic() {
+	public Subtopic() {
 		super();
 	}
 
-	public Topic(TopicName topicName, TopicStatus status, Timestamp subtopicDate) {
+	public Subtopic(SubtopicName subtopicName, Batch batch, SubtopicStatus status, Timestamp subtopicDate) {
 		super();
-		this.topicName = topicName;
-
+		this.subtopicName = subtopicName;
+		this.batch = batch;
 		this.status = status;
 		this.subtopicDate = subtopicDate;
 	}
 
-	public Topic(int subtopicId, TopicName topicName, TopicStatus status,
+	public Subtopic(int subtopicId, SubtopicName subtopicName, Batch batch, SubtopicStatus status,
 			Timestamp subtopicDate) {
 		super();
 		this.subtopicId = subtopicId;
-		this.topicName = topicName;
-
+		this.subtopicName = subtopicName;
+		this.batch = batch;
 		this.status = status;
 		this.subtopicDate = subtopicDate;
 	}
@@ -72,20 +75,27 @@ public class Topic {
 		this.subtopicId = subtopicId;
 	}
 
-	public TopicName getSubtopicName() {
-		return topicName;
+	public SubtopicName getSubtopicName() {
+		return subtopicName;
 	}
 
-	public void setSubtopicName(TopicName topicName) {
-		this.topicName = topicName;
+	public void setSubtopicName(SubtopicName subtopicName) {
+		this.subtopicName = subtopicName;
 	}
 
+	public Batch getBatch() {
+		return batch;
+	}
 
-	public TopicStatus getStatus() {
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
+
+	public SubtopicStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(TopicStatus status) {
+	public void setStatus(SubtopicStatus status) {
 		this.status = status;
 	}
 
@@ -99,7 +109,7 @@ public class Topic {
 
 	@Override
 	public String toString() {
-		return "Topic [subtopicId=" + subtopicId +", subtopicDate=" + subtopicDate + ", status=" + status +"]";
+		return "Subtopic [subtopicId=" + subtopicId + ", batch=" + batch + ", subtopicDate=" + subtopicDate + ", status=" + status +"]";
 	}
 
 }

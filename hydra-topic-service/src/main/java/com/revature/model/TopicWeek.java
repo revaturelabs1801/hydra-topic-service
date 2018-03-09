@@ -31,6 +31,10 @@ public class TopicWeek {
 	@Autowired
 	private TopicName topic;
 
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Topic_Batch_ID", referencedColumnName = "Batch_ID")
+	@Autowired
+	private Batch batch;
 
 	@Column(name = "Topic_Week_Number")
 	private Integer weekNumber;
@@ -39,17 +43,18 @@ public class TopicWeek {
 		super();
 	}
 
-	public TopicWeek(Integer id, TopicName topic, Integer weekNumber) {
+	public TopicWeek(Integer id, TopicName topic, Batch batch, Integer weekNumber) {
 		super();
 		this.id = id;
 		this.topic = topic;
-
+		this.batch = batch;
 		this.weekNumber = weekNumber;
 	}
 
-	public TopicWeek(TopicName topic, Integer weekNumber) {
+	public TopicWeek(TopicName topic, Batch batch, Integer weekNumber) {
 		super();
 		this.topic = topic;
+		this.batch = batch;
 		this.weekNumber = weekNumber;
 	}
 
@@ -69,8 +74,13 @@ public class TopicWeek {
 		this.topic = topic;
 	}
 
+	public Batch getBatch() {
+		return batch;
+	}
 
-
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
 
 	public Integer getWeekNumber() {
 		return weekNumber;
@@ -82,7 +92,7 @@ public class TopicWeek {
 
 	@Override
 	public String toString() {
-		return "TopicWeek [id=" + id + ", topic=" + topic   + ", weekNumber=" + weekNumber + "]";
+		return "TopicWeek [id=" + id + ", topic=" + topic + ", batch=" + batch + ", weekNumber=" + weekNumber + "]";
 	}
 
 }
