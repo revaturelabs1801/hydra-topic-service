@@ -1,6 +1,5 @@
 package com.revature.model;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,32 +12,32 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "Subtopic_Type")
-public class TopicType {
+@Table(name = "Subtopic_Status")
+public class SubtopicStatus {
 
 	@Id
-	@Column(name = "Type_ID")
-	@SequenceGenerator(name = "Subtopic_Type_ID_SEQ", sequenceName = "Subtopic_Type_ID_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Subtopic_Type_ID_SEQ")
+	@Column(name = "Status_ID")
+	@SequenceGenerator(name = "Status_ID_SEQ", sequenceName = "Status_ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Status_ID_SEQ")
 	private Integer id;
 
-	@Column(name = "Type_Name")
+	@Column(name = "Status_Name")
 	private String name;
 
-	public TopicType() {
+	public SubtopicStatus() {
 		//Empty Because No Args
 	}
 
-	public TopicType(Integer id, String name) {
+	public SubtopicStatus(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public TopicType(String name) {
-		super();//NOSONAR
+	public SubtopicStatus(String name) {
+		super();
 		this.name = name;
-	}
+	}//NOSONAR
 
 	public Integer getId() {
 		return id;
@@ -58,7 +57,7 @@ public class TopicType {
 
 	@Override
 	public String toString() {
-		return "TopicType [id=" + id + ", name=" + name + "]";//NOSONAR
+		return "SubtopicStatus [id=" + id + ", name=" + name + "]";//NOSONAR
 	}
 
 }
