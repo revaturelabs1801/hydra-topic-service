@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "SUBTOPIC")
 @Component
-public class Subtopic {
+public class Topic {
 
 	@Id
 	@Column(name = "Subtopic_Id")
@@ -30,37 +30,35 @@ public class Subtopic {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SUBTOPIC_NAME_ID", referencedColumnName = "SUBTOPIC_NAME_ID")
 	@Autowired
-	private SubtopicName subtopicName;
+	private TopicName topicName;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "SUBTOPIC_BATCH_ID", referencedColumnName = "BATCH_ID")
 
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SUBTOPIC_STATUS_ID", referencedColumnName = "STATUS_ID")
 	@Autowired
-	private SubtopicStatus status;
+	private TopicStatus status;
 
 	@Column(name = "Subtopic_Date")
 	private Timestamp subtopicDate;
 
-	public Subtopic() {
+	public Topic() {
 		super();
 	}
 
-	public Subtopic(SubtopicName subtopicName, Batch batch, SubtopicStatus status, Timestamp subtopicDate) {
+	public Topic(TopicName topicName, TopicStatus status, Timestamp subtopicDate) {
 		super();
-		this.subtopicName = subtopicName;
+		this.topicName = topicName;
 
 		this.status = status;
 		this.subtopicDate = subtopicDate;
 	}
 
-	public Subtopic(int subtopicId, SubtopicName subtopicName, Batch batch, SubtopicStatus status,
+	public Topic(int subtopicId, TopicName topicName, TopicStatus status,
 			Timestamp subtopicDate) {
 		super();
 		this.subtopicId = subtopicId;
-		this.subtopicName = subtopicName;
+		this.topicName = topicName;
 
 		this.status = status;
 		this.subtopicDate = subtopicDate;
@@ -74,20 +72,20 @@ public class Subtopic {
 		this.subtopicId = subtopicId;
 	}
 
-	public SubtopicName getSubtopicName() {
-		return subtopicName;
+	public TopicName getSubtopicName() {
+		return topicName;
 	}
 
-	public void setSubtopicName(SubtopicName subtopicName) {
-		this.subtopicName = subtopicName;
+	public void setSubtopicName(TopicName topicName) {
+		this.topicName = topicName;
 	}
 
 
-	public SubtopicStatus getStatus() {
+	public TopicStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(SubtopicStatus status) {
+	public void setStatus(TopicStatus status) {
 		this.status = status;
 	}
 
@@ -101,7 +99,7 @@ public class Subtopic {
 
 	@Override
 	public String toString() {
-		return "Subtopic [subtopicId=" + subtopicId +", subtopicDate=" + subtopicDate + ", status=" + status +"]";
+		return "Topic [subtopicId=" + subtopicId +", subtopicDate=" + subtopicDate + ", status=" + status +"]";
 	}
 
 }

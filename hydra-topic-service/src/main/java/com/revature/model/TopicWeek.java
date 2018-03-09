@@ -31,9 +31,6 @@ public class TopicWeek {
 	@Autowired
 	private TopicName topic;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Topic_Batch_ID", referencedColumnName = "Batch_ID")
-
 
 	@Column(name = "Topic_Week_Number")
 	private Integer weekNumber;
@@ -42,7 +39,7 @@ public class TopicWeek {
 		super();
 	}
 
-	public TopicWeek(Integer id, TopicName topic, Batch batch, Integer weekNumber) {
+	public TopicWeek(Integer id, TopicName topic, Integer weekNumber) {
 		super();
 		this.id = id;
 		this.topic = topic;
