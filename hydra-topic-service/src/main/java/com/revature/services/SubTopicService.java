@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class SubTopicService {
 	@Autowired
 	  SubtopicRepository subtopicRepository;
 
-	  @Autowired
-	  BatchRepository batchRepository;
+	  /*@Autowired
+	  BatchRepository batchRepository;*/
 
 	  @Autowired
 	  SubtopicNameRepository subtopicNameRepository;
@@ -51,16 +51,20 @@ public class SubTopicService {
 	    try {
 	      date = dateFormat.parse("23/09/2017");
 	    } catch (Exception e) {
-	      LogManager.getRootLogger().error(e);
+	    	System.out.println("Error");
+	      //LogManager.getRootLogger().error(e);
 	    }
 	    long time = date.getTime();
 	    Timestamp ts = new Timestamp(time);
 
-	    b = batchRepository.findByid(batch);
+	    //Need to do batch stuff
+	   // b = batchRepository.findByid(batch);
 	    st = subtopicNameRepository.findByid(subtopic);
 	    ss = subtopicStatusRepository.findByid(1);
 
-	    s.setBatch(b);
+	    
+	    //Need to do batch stuff
+	    //s.setBatch(b);
 	    s.setSubtopicName(st);
 	    s.setStatus(ss);
 	    s.setSubtopicDate(ts);
@@ -72,9 +76,9 @@ public class SubTopicService {
 			return subtopicRepository.findByBatch(batch);
 		}
 
-		public List<Subtopic> getSubtopicByBatchId(int batchId) {
+		/*public List<Subtopic> getSubtopicByBatchId(int batchId) {
 			return subtopicRepository.findByBatch(batchRepository.findByid(batchId));
-		}
+		}*/
 
 	  /**
 	   * 
@@ -131,9 +135,9 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
+	  /*public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
 	    return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
-	  }
+	  }*/
 
 	  /**
 	   * 
