@@ -30,8 +30,8 @@ public class SubTopicService {
 	@Autowired
 	  SubtopicRepository subtopicRepository;
 
-	  @Autowired
-	  BatchRepository batchRepository;
+	  /*@Autowired
+	  BatchRepository batchRepository;*/
 
 	  @Autowired
 	  SubtopicNameRepository subtopicNameRepository;
@@ -58,11 +58,14 @@ public class SubTopicService {
 	    long time = date.getTime();
 	    Timestamp ts = new Timestamp(time);
 
-	    b = batchRepository.findByid(batch);
+	    //Need to do batch stuff
+	   // b = batchRepository.findByid(batch);
 	    st = subtopicNameRepository.findByid(subtopic);
 	    ss = subtopicStatusRepository.findByid(1);
 
-	    s.setBatch(b);
+	    
+	    //Need to do batch stuff
+	    //s.setBatch(b);
 	    s.setSubtopicName(st);
 	    s.setStatus(ss);
 	    s.setSubtopicDate(ts);
@@ -74,9 +77,9 @@ public class SubTopicService {
 			return subtopicRepository.findByBatch(batch);
 		}
 
-		public List<Subtopic> getSubtopicByBatchId(int batchId) {
+		/*public List<Subtopic> getSubtopicByBatchId(int batchId) {
 			return subtopicRepository.findByBatch(batchRepository.findByid(batchId));
-		}
+		}*/
 
 	  /**
 	   * 
@@ -133,9 +136,9 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
+	  /*public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
 	    return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
-	  }
+	  }*/
 
 	  /**
 	   * 

@@ -20,8 +20,8 @@ public class TopicService {
 	  @Autowired
 	  TopicWeekRepository topicWeekRepository;
 
-	 @Autowired
-	  BatchRepository batchRepistory;
+	 /*@Autowired
+	  BatchRepository batchRepistory;*/
 
 	  @Autowired
 	  TopicNameRepository topicNameRepository;
@@ -31,10 +31,10 @@ public class TopicService {
 	    Batch b;
 	    TopicName topicName;
 
-	    b = batchRepistory.findByid(batch);
+	    //b = batchRepistory.findByid(batch);
 	    topicName = topicNameRepository.findByid(topicNameId);
 
-	    topic.setBatch(b);
+	    //topic.setBatch(b);
 	    topic.setTopic(topicName);
 	    topic.setWeekNumber(weekNumber);
 
@@ -45,9 +45,9 @@ public class TopicService {
 	    return topicWeekRepository.findByBatch(batch);
 	  }
 
-	  public List<TopicWeek> getTopicByBatchId(int batchId) {
+	  /*public List<TopicWeek> getTopicByBatchId(int batchId) {
 	    return topicWeekRepository.findByBatch(batchRepistory.findByid(batchId));
-	  }
+	  }*/
 
 	  public List<TopicName> getTopics() {
 	    return topicNameRepository.findAll();
