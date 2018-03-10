@@ -25,7 +25,7 @@ import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
 @RestController
-@RequestMapping(value = "/api/v2/Subtopic/")
+//@RequestMapping(value = "/api/v2/Subtopic/")
 public class SubTopicController {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class SubTopicController {
 	@Autowired
 	SubTopicService subTopicService;
 
-	@GetMapping("")
+	@GetMapping("/subTop")
 	public Subtopic home() {
 		return new Subtopic(new SubtopicName("Java", null, null), null, null, null);
 	}
@@ -44,12 +44,14 @@ public class SubTopicController {
 	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
 		return restTemplateBuilder.build();
 	}
-
+	/*
 	@Autowired
 	private RestTemplate restTemplate;
 
 	@RequestMapping(value = "addSubtopic", method = RequestMethod.POST, produces = "application/json")
-	public void addSubtopic(@RequestBody String jsonObj) /* throws CustomException */ {
+	public void addSubtopic(@RequestBody String jsonObj) /* throws CustomException */
+	
+		/*{
 
 		Subtopic st = null;
 		try {
@@ -69,6 +71,6 @@ public class SubTopicController {
 		SubtopicName subtopic = new SubtopicName(request.getParameter("subtopicName"), topic, type);
 		subTopicService.addOrUpdateSubtopicName(subtopic);
 	}
-
+*/
 
 }

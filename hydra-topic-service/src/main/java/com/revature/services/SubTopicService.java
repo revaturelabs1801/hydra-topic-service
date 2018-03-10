@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,8 @@ public class SubTopicService {
 	    try {
 	      date = dateFormat.parse("23/09/2017");
 	    } catch (Exception e) {
-	      LogManager.getRootLogger().error(e);
+	    	System.out.println("Error");
+	      //LogManager.getRootLogger().error(e);
 	    }
 	    long time = date.getTime();
 	    Timestamp ts = new Timestamp(time);
