@@ -16,6 +16,9 @@ import com.revature.services.TopicService;
 public class TopicController {
 
 
+		/*
+		 * Dummy rest call
+		 */
 		@GetMapping("/")
 		public TopicName home(){
 			System.out.println("Getting here");
@@ -33,6 +36,9 @@ public class TopicController {
 	    topicService.addOrUpdateTopicName(topic);
 	  }
 	  
+		/*
+		 * Dummy rest call
+		 */
 		@GetMapping("/getFc2")
 		public TopicName getFc(){
 			System.out.println("hit /getFc2");
