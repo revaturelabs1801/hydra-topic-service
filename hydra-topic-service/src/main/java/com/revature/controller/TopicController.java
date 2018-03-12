@@ -1,58 +1,3 @@
-
-/*package com.revature.controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.revature.model.TopicName;
-import com.revature.services.TopicService;
-
-
-@RestController
-//@RequestMapping(value = "/api/v2/Topic/")
-public class TopicController {
-
-
-		/*
-		 * Dummy rest call
-		 *//*
-		@GetMapping("/")
-		public TopicName home(){
-			System.out.println("Getting here");
-			return new TopicName("New Topic");
-		}
-		
-		
-		  @Autowired
-		  TopicService topicService;
-		
-	  @RequestMapping(value = "Add", method = RequestMethod.POST)
-	  public void addTopicName(HttpServletRequest request) {
-	    TopicName topic = new TopicName();
-	    topic.setName(request.getParameter("name"));
-	    topicService.addOrUpdateTopicName(topic);
-	  }
-	  
-		/*
-		 * Dummy rest call
-		 *//*
-		@GetMapping("/getFc2")
-		public TopicName getFc(){
-			System.out.println("hit /getFc2");
-			TopicName t=new TopicName("Test");
-			
-			//FlashCard fc = restTemplate.getForObject("http://flashcard-service-2/fc2", FlashCard.class);
-			return t;
-		}
-		
-
-
-}*/
-
 package com.revature.controller;
 
 import java.io.IOException;
@@ -61,7 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,6 +31,7 @@ import com.revature.services.TopicService;
 
 @RestController
 @RequestMapping("/api/v2/Topics/")
+@CrossOrigin
 class TopicController {
 
 	@Autowired
@@ -135,5 +85,26 @@ class TopicController {
 	    TopicName topic = topicService.getTopicName(Integer.parseInt(request.getParameter("topicId")));
 	    SubtopicName subtopic = new SubtopicName(request.getParameter("subtopicName"), topic, type);
 	    subserv.addOrUpdateSubtopicName(subtopic);
+	  }
+	  
+	  /**
+	   * @author Cristian Hermida, Charlie Harris / Batch 1712-dec10-java-steve
+	   * @param request
+	   * 			- I request must have to have the name of the topic.
+	   * @return The added topic (if any) as a TopicName and HttpStatus
+	   * 			- status of 201 CREATED if a Topic is created or updated.
+	   * 			- status of 204 NO_CONTENT is a Topic is not created.
+	   */
+	  @PostMapping("add/{newTopicName}")
+	  public ResponseEntity<TopicName> addTopicName(@PathVariable String newTopicName) {
+	    TopicName topic = new TopicName();
+	    topic.setName(newTopicName);
+	    TopicName topicUpdate = topicService.addOrUpdateTopicName(topic);
+	    if(topicUpdate != null) {
+	    	return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
+	    }
+	    else {
+	    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    }
 	  }
 }
