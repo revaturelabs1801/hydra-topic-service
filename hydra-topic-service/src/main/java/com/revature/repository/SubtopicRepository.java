@@ -8,14 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.model.Batch;
 import com.revature.model.Subtopic;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
-
-@Repository
+@RepositoryRestResource
 public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	List<Subtopic> findByBatch(Batch batch);
-	
-	List<Subtopic> findAll();
 
 	/**
 	 * Counts the number of subtopics in the database by matching it with the

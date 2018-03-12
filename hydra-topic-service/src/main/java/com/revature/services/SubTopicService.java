@@ -118,7 +118,9 @@ public class SubTopicService {
 	  }
 
 	  public List<Subtopic> getSubtopics() {
+		 
 	    return subtopicRepository.findAll();
+	    
 	  }
 
 	  /**

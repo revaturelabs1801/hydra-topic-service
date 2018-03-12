@@ -25,7 +25,7 @@ import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
 @RestController
-//@RequestMapping(value = "/api/v2/Subtopic/")
+@RequestMapping(value = "/api/v2/Subtopic/")
 public class SubTopicController {
 
 	@Autowired
@@ -34,6 +34,9 @@ public class SubTopicController {
 	@Autowired
 	SubTopicService subTopicService;
 
+	/*
+	 * Dummy rest call
+	 */
 	@GetMapping("/subTop")
 	public Subtopic home() {
 		return new Subtopic(new SubtopicName("Java", null, null), null, null, null);
