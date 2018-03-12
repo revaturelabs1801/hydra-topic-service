@@ -12,8 +12,6 @@ import com.revature.repository.BatchRepository;
 import com.revature.repository.TopicNameRepository;
 import com.revature.repository.TopicWeekRepository;
 
-
-
 @Service
 public class TopicService {
 
@@ -53,8 +51,11 @@ public class TopicService {
 	    return topicNameRepository.findAll();
 	  }
 
-	  public void addOrUpdateTopicName(TopicName topic) {
-	    topicNameRepository.save(topic);
+	  public TopicName addOrUpdateTopicName(TopicName topic) {
+		    System.out.println("i ghatee this2");
+		    System.out.println(topic);
+	    return topicNameRepository.save(topic);
+	    
 	  }
 
 	  public TopicName getTopicName(int id) {
