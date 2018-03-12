@@ -25,7 +25,7 @@ import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
 @RestController
-//@RequestMapping(value = "/api/v2/Subtopic/")
+@RequestMapping(value = "/api/v2/Subtopic/")
 public class SubTopicController {
 
 	@Autowired
