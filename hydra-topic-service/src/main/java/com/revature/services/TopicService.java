@@ -45,16 +45,18 @@ public class TopicService {
 	}
 
 	public List<TopicWeek> getTopicByBatchId(int batchId) {
-		return topicWeekRepository.findByBatch(RequestController.findBatchById(batchId));
+		return topicWeekRepository.findByBatchId(batchId);
 	}
 
 	public List<TopicName> getTopics() {
 		return topicNameRepository.findAll();
 	}
 
-	public void addOrUpdateTopicName(TopicName topic) {
-		topicNameRepository.save(topic);
+
+	public TopicName addOrUpdateTopicName(TopicName topic) {
+		return topicNameRepository.save(topic);
 	}
+
 
 	public TopicName getTopicName(int id) {
 		return topicNameRepository.findByid(id);

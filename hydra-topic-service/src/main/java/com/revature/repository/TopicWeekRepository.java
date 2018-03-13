@@ -14,4 +14,6 @@ import com.revature.model.TopicWeek;
 @RepositoryRestResource
 public interface TopicWeekRepository extends JpaRepository<TopicWeek, Integer> {
 	List<TopicWeek> findByBatch(Batch batch);
+
+	List<TopicWeek> findByBatchId(int batchId);
 }

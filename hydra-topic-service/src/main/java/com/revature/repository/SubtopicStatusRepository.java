@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.model.SubtopicStatus;
 
-
-
-
+@Repository
 @RepositoryRestResource
 public interface SubtopicStatusRepository extends JpaRepository<SubtopicStatus, Integer> {
 	public SubtopicStatus findByid(Integer id);

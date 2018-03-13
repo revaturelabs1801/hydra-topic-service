@@ -9,14 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.model.Batch;
 import com.revature.model.Subtopic;
-
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 @RepositoryRestResource
 public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	List<Subtopic> findByBatch(Batch batch);
-	
-	List<Subtopic> findAll();
 
 	/**
 	 * Counts the number of subtopics in the database by matching it with the
@@ -42,5 +40,12 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	 * @author  Michael Garza, Gary LaMountain
 	 */
 	List<Subtopic> findByBatch(Batch batch, Pageable pageable);
+	/**
+	 * Finds one subtopic in the batch
+	 * @param batchId
+	 * @return
+	 */
+	List<Subtopic> findTop1ByBatchId(int batchId);
+	void deleteByBatch(Batch batch);
 
 }
