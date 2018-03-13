@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.revature.exceptions.CustomException;
+import com.revature.exception.CustomException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicType;
@@ -107,4 +107,5 @@ class TopicController {
 	    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    }
 	  }
+
 }

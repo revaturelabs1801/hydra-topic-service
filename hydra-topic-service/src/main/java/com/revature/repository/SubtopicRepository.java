@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import com.revature.model.Batch;
 import com.revature.model.Subtopic;
+import com.revature.model.SubtopicType;
+
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
@@ -46,5 +49,6 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	 */
 	List<Subtopic> findTop1ByBatchId(int batchId);
 	void deleteByBatch(Batch batch);
+
 
 }
