@@ -40,7 +40,7 @@ public class TopicServerController {
 	//This works
 	@PostMapping("/getTopicByBatchId/{batchId}")
 	public @ResponseBody ResponseEntity<List<TopicWeek>> getTopicByBatchId(@PathVariable int batchId) {
-		List<TopicWeek> t=this.topicService.getTopicByBatchId(batchId);
+		List<TopicWeek> t= this.topicService.getTopicByBatchId(batchId);
 		//System.out.println(t);
 		return new ResponseEntity<List<TopicWeek>>(t,HttpStatus.OK);
 
