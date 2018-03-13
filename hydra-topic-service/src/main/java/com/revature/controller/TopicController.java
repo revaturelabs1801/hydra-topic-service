@@ -12,7 +12,7 @@ import com.revature.services.TopicService;
 
 
 @RestController
-//@RequestMapping(value = "/api/v2/Topic/")
+@RequestMapping(value = "api/v2/Topic/")
 public class TopicController {
 
 
