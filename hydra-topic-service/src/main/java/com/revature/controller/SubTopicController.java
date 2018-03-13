@@ -56,7 +56,7 @@ public class SubTopicController {
 	private RestTemplate restTemplate;
 
 	@RequestMapping(value = "addSubtopic", method = RequestMethod.POST, produces = "application/json")
-	public void addSubtopic(@RequestBody String jsonObj) /* throws CustomException */
+	public void addSubtopic(@RequestBody String jsonObj)  throws CustomException 
 	
 		{
 
@@ -64,8 +64,7 @@ public class SubTopicController {
 		try {
 			st = new ObjectMapper().readValue(jsonObj, Subtopic.class);
 		} catch (IOException e) {
-			System.out.println(("Error"));
-			// throw new CustomException(e);
+			 throw new CustomException(e);
 		}
 
 		subTopicService.updateSubtopic(st);

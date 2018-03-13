@@ -18,9 +18,10 @@ public class HydraTopicServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HydraTopicServiceApplication.class, args);
 	}
+	
 	@LoadBalanced
 	@Bean
-	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder){
 		return restTemplateBuilder.build();
 	}
 }
