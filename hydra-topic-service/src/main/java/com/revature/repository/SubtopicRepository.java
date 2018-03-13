@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.model.Batch;
 import com.revature.model.Subtopic;
+import com.revature.model.SubtopicType;
+
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
@@ -47,5 +49,6 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	 */
 	List<Subtopic> findTop1ByBatchId(int batchId);
 	void deleteByBatch(Batch batch);
+
 
 }

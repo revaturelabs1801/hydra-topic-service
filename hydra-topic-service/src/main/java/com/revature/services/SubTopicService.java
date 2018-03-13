@@ -166,6 +166,16 @@ public class SubTopicService {
 	  public SubtopicType getSubtopicType(int type) {
 	    return subtopicTypeRepository.findByid(type);
 	  }
+	  
+	  /**
+	   * 
+	   * @param int
+	   *          type
+	   * @return List of Subtopics
+	   */
+	  public List<SubtopicName> getSubtopicByType(int type) {
+	    return subtopicNameRepository.findByTypeId(type);
+	  }
 
 	  /**
 	   * 
