@@ -70,6 +70,12 @@ public class SubtopicServerController {
 		return new ResponseEntity<List<SubtopicName>> (subTopicService.getAllSubtopics(),HttpStatus.OK);
 	}
 	
+	//Working on it
+	@GetMapping("getSubtopics")
+	public ResponseEntity <List<Subtopic>> getSubtopics(){
+		return new ResponseEntity<List<Subtopic>> (subTopicService.getSubtopics(),HttpStatus.OK);
+	}
+	
 	//Do we need this?
 	@GetMapping("getSubtopicByName/{name}")
 	public ResponseEntity <SubtopicName> getSubtopicName(@PathVariable String name){
