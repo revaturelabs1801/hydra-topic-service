@@ -38,13 +38,6 @@ public class SubTopicController {
 	@Autowired
 	SubTopicService subTopicService;
 
-	/*
-	 * Dummy rest call
-	 */
-	@GetMapping("/subTop")
-	public Subtopic home() {
-		return new Subtopic(new SubtopicName("Java", null, null), null, null, null);
-	}
 
 	@LoadBalanced
 	@Bean

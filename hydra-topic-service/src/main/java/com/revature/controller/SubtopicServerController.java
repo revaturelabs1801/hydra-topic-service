@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.model.Batch;
-import com.revature.model.CurriculumSubtopic;
+
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
@@ -134,11 +133,11 @@ public class SubtopicServerController {
 		return new ResponseEntity<List<Subtopic>> (subTopicService.saveSubtopics(subtopics),HttpStatus.OK);
 	}
 	
-	//Not sure how to test
-	@GetMapping("mapCurriculumSubtopicsToSubtopics")
+	//Working on it
+	/*@GetMapping("mapCurriculumSubtopicsToSubtopics")
 	public ResponseEntity <List<Subtopic>> mapCurriculumSubtopicstoSubtopics(@RequestBody Map<Integer, List<CurriculumSubtopic>> map, @RequestBody Batch batch ){
 		return new ResponseEntity<List<Subtopic>> (subTopicService.mapCurriculumSubtopicsToSubtopics(map, batch),HttpStatus.OK);
-	}
+	}*/
 }
 
 

@@ -32,10 +32,8 @@ public class Subtopic {
 	@Autowired
 	private SubtopicName subtopicName;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "SUBTOPIC_BATCH_ID", referencedColumnName = "BATCH_ID")
-	@Autowired
-	private Batch batch;
+	@Column(name = "SUBTOPIC_BATCH_ID")
+	private int batchid;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SUBTOPIC_STATUS_ID", referencedColumnName = "STATUS_ID")
@@ -49,20 +47,20 @@ public class Subtopic {
 		super();
 	}
 
-	public Subtopic(SubtopicName subtopicName, Batch batch, SubtopicStatus status, Timestamp subtopicDate) {
+	public Subtopic(SubtopicName subtopicName, int batchId, SubtopicStatus status, Timestamp subtopicDate) {
 		super();
 		this.subtopicName = subtopicName;
-		this.batch = batch;
+		this.batchid = batchId;
 		this.status = status;
 		this.subtopicDate = subtopicDate;
 	}
 
-	public Subtopic(int subtopicId, SubtopicName subtopicName, Batch batch, SubtopicStatus status,
+	public Subtopic(int subtopicId, SubtopicName subtopicName, int batchId, SubtopicStatus status,
 			Timestamp subtopicDate) {
 		super();
 		this.subtopicId = subtopicId;
 		this.subtopicName = subtopicName;
-		this.batch = batch;
+		this.batchid = batchId;
 		this.status = status;
 		this.subtopicDate = subtopicDate;
 	}
@@ -83,12 +81,12 @@ public class Subtopic {
 		this.subtopicName = subtopicName;
 	}
 
-	public Batch getBatch() {
-		return batch;
+	public int getBatch() {
+		return batchid;
 	}
 
-	public void setBatch(Batch batch) {
-		this.batch = batch;
+	public void setBatch(int batchid) {
+		this.batchid = batchid;
 	}
 
 	public SubtopicStatus getStatus() {
@@ -109,7 +107,7 @@ public class Subtopic {
 
 	@Override
 	public String toString() {
-		return "Subtopic [subtopicId=" + subtopicId + ", batch=" + batch + ", subtopicDate=" + subtopicDate + ", status=" + status +"]";
+		return "Subtopic [subtopicId=" + subtopicId + ", batchId=" + batchid + ", subtopicDate=" + subtopicDate + ", status=" + status +"]";
 	}
 
 }

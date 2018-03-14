@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.model.Batch;
+
 import com.revature.model.TopicName;
 import com.revature.model.TopicWeek;
 import com.revature.services.TopicService;
@@ -31,11 +31,11 @@ public class TopicServerController {
 		this.topicService.addTopic(topicNameId, batch, weekNumber);
 	}
 
-	//This should theoretically work, but not sure how to test
-	@PostMapping("/getTopicByBatch/{batch}")
+	//need to work on this
+	/*@PostMapping("/getTopicByBatch/{batch}")
 	public ResponseEntity<List<TopicWeek>> getTopicByBatch(@PathVariable Batch batch) {
 		return new ResponseEntity<List<TopicWeek>>(this.topicService.getTopicByBatch(batch),HttpStatus.OK);
-	}
+	}*/
 
 	//This works
 	@PostMapping("/getTopicByBatchId/{batchId}")
