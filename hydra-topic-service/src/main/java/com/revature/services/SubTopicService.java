@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.revature.model.Batch;
@@ -143,9 +144,10 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  /*public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
-	    return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
-	  }*/
+	  public List<Subtopic> findByBatchId(int batchId) {
+	    //return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
+		  return subtopicRepository.findByBatchId(batchId);
+	  }
 
 	  /**
 	   * 
