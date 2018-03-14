@@ -50,5 +50,7 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	List<Subtopic> findTop1ByBatchId(int batchId);
 	void deleteByBatch(Batch batch);
 
+	List<Subtopic> findByBatchId(int batchId);
+
 
 }
