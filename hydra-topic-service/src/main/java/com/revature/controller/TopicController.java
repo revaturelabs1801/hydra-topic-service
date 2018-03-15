@@ -43,11 +43,6 @@ class TopicController {
 	@Autowired
 	SubtopicNameRepository sr;
 	
-	@GetMapping("/")
-	public TopicName home(){
-		System.out.println("Getting here");
-		return new TopicName("New Topic");
-	}
 	
 	@RequestMapping(value = "/All", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -58,14 +53,14 @@ class TopicController {
 	}
 
 	@PostMapping("/addSubtopic")
-	public void addSubtopic(@RequestBody String jsonObj) /*throws CustomException*/ {
+	public void addSubtopic(@RequestBody String jsonObj) throws CustomException {
 
 		Subtopic st = null;
 		try {
 			st = new ObjectMapper().readValue(jsonObj, Subtopic.class);
 		} catch (IOException e) {
 			System.out.println("Error");
-			//throw new CustomException(e);
+			throw new CustomException(e);
 		}
 
 		subserv.updateSubtopic(st);
