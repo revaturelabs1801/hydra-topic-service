@@ -10,15 +10,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
-import org.hibernate.engine.jdbc.batch.spi.Batch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.controller.RequestController;
 import com.revature.exception.CustomException;
+import com.revature.model.Batch;
+import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
@@ -34,9 +36,6 @@ public class SubTopicService {
 	  @Autowired
 	  SubtopicRepository subtopicRepository;
 
-	  /*@Autowired
-	  BatchRepository batchRepository;*/
-
 	  @Autowired
 	  SubtopicNameRepository subtopicNameRepository;
 
@@ -48,7 +47,6 @@ public class SubTopicService {
 
 	  public void addSubtopic(int subtopic, int batch) throws CustomException {
 	    Subtopic s = new Subtopic();
-	    Batch b;
 	    SubtopicName st;
 	    SubtopicStatus ss;
 	    Date date = new Date();
@@ -70,7 +68,7 @@ public class SubTopicService {
 
 	    
 	    //Need to do batch stuff
-	    //s.setBatch(b);
+	    s.setBatch(batch);
 	    s.setSubtopicName(st);
 	    s.setStatus(ss);
 	    s.setSubtopicDate(ts);
@@ -242,6 +240,7 @@ public class SubTopicService {
 			//return subtopicRepository.save(subtopics);
 			return subtopicRepository.saveAll(subtopics);
 		}
+
 		
 	  	/**
 	  	 * Maps curriculum subtopics into subtopics. Each subtopic date is determined by the start date of the batch offset by the week and day of the corresponding curriculum subtopic. 
@@ -249,7 +248,7 @@ public class SubTopicService {
 	  	 * @param map, batch
 	  	 * @return List<Subtopic>
 	  	 */
-		/*public List<Subtopic> mapCurriculumSubtopicsToSubtopics(Map<Integer, List<CurriculumSubtopic>> map, Batch batch){
+		public List<Subtopic> mapCurriculumSubtopicsToSubtopics(Map<Integer, List<CurriculumSubtopic>> map, int batchid){
 			
 			SubtopicStatus subStatus = subtopicStatusRepository.findByName("Pending");
 			ArrayList<Subtopic> subtopics = new ArrayList<>();
@@ -268,12 +267,15 @@ public class SubTopicService {
 				    
 					Subtopic subtopic = new Subtopic();
 					
-					subtopic.setBatch(batch);
-					//subtopic.setSubtopicName(curriculumSubtopic.getCurriculumSubtopicNameId());
+					subtopic.setBatch(batchid);
+					subtopic.setSubtopicName(curriculumSubtopic.getCurriculumSubtopicNameId());
 					subtopic.setStatus(subStatus);
 					
 					//set date to the batch start date
-					//cal.setTime(batch.getStartDate());
+					Batch batch= RequestController.findBatchById(batchid);
+					System.out.println(batch);
+					
+					cal.setTime(batch.getStartDate());
 					
 					//set the time
 					cal.set(Calendar.HOUR_OF_DAY, randomNum);
@@ -283,7 +285,7 @@ public class SubTopicService {
 					
 					//determine how many days offset from the start date the new subtopic will be
 					//Need to do curriculum
-					int week = 3/*curriculumSubtopic.getCurriculumSubtopicWeek()*//*;
+					int week = curriculumSubtopic.getCurriculumSubtopicWeek();
 					int absDay = (week-1)*7 + day - 1;
 					
 					//determine what the actual date on the calendar will be by adding the offset to the currently set calendar day (the batch start date)
@@ -300,6 +302,6 @@ public class SubTopicService {
 			return subtopicRepository.saveAll(subtopics);
 			
 			
-		}*/
+		}
 
 }
