@@ -49,18 +49,19 @@ public class SubtopicServerController {
 		return new ResponseEntity<List<Subtopic>> (subTopicService.findByBatchId(batchId),HttpStatus.OK);
 	}
 	
-	//Need to fix database thing
-	@GetMapping("/getStatus/{name}")
-	public ResponseEntity<SubtopicStatus> getStatus(@PathVariable String name) {
+	//Works
+	@GetMapping("/getSubtopicsByStatus/{name}")
+	public ResponseEntity<List<Subtopic>> getStatus(@PathVariable String name) {
 		System.out.println(name);
 		SubtopicStatus s=subTopicService.getStatus(name);
 		System.out.println(s);
-		return new ResponseEntity<SubtopicStatus>(s,HttpStatus.OK);
+		List<Subtopic> s1=subTopicService.getSubtopicsByStatus(s);
+		return new ResponseEntity<List<Subtopic>>(s1,HttpStatus.OK);
 	}
 	
-	//Do we need this?
-	@GetMapping("getNumberofSubtopics")
-	public ResponseEntity <Long> getNumberOfSubtopics(@RequestBody int batchId){
+	//Works
+	@GetMapping("getNumberofSubtopics/{batchId}")
+	public ResponseEntity <Long> getNumberOfSubtopics(@PathVariable int batchId){
 		return new ResponseEntity<Long> (subTopicService.getNumberOfSubtopics(batchId),HttpStatus.OK);
 	}
 	
@@ -87,7 +88,8 @@ public class SubtopicServerController {
 	//Do we need this?
 	@GetMapping("getSubtopicByName/{name}")
 	public ResponseEntity <SubtopicName> getSubtopicName(@PathVariable String name){
-		return new ResponseEntity<SubtopicName> (subTopicService.getSubtopicName(name),HttpStatus.OK);
+		SubtopicName s=subTopicService.getSubtopicName(name);
+		return new ResponseEntity<SubtopicName> (subTopicService.getSubtopicByName(s),HttpStatus.OK);
 	}
 	
 	//Works

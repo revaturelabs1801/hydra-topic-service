@@ -100,6 +100,17 @@ public class SubTopicService {
 		public SubtopicStatus getStatus(String name) {
 			return subtopicStatusRepository.findByName(name);
 		}
+		
+		  /**
+		   * 
+		   * @param int
+		   *          type
+		   * @return List of Subtopics by status
+		   */
+		  public List<Subtopic> getSubtopicsByStatus(SubtopicStatus status) {
+			  System.out.println("Here");
+		    return subtopicRepository.findSubtopicByStatus(status);
+		  }
 
 	  /**
 	   * Service method to return the number of Subtopics by matching their ids with
@@ -152,6 +163,16 @@ public class SubTopicService {
 	  public SubtopicName getSubtopicName(String name) {
 	    return subtopicNameRepository.findByName(name);
 	  }
+	  
+	  /**
+	   * 
+	   * @param String
+	   *          name
+	   * @return List of subtopic by SubtopicName
+	   */
+	  public SubtopicName getSubtopicByName(SubtopicName name) {
+	    return subtopicRepository.findSubtopicBySubtopicName(name);
+	  }
 
 	  /**
 	   * 
@@ -162,6 +183,8 @@ public class SubTopicService {
 	  public SubtopicType getSubtopicType(int type) {
 	    return subtopicTypeRepository.findByid(type);
 	  }
+	  
+
 	  
 	  /**
 	   * 
