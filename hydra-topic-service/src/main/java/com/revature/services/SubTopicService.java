@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.revature.exception.CustomException;
@@ -81,6 +82,7 @@ public class SubTopicService {
 		public List<Subtopic> getSubtopicByBatchId(int batchId) {
 			return subtopicRepository.findByBatchid(batchId);
 		}
+		
 
 		/**
 		 * 
@@ -143,6 +145,9 @@ public class SubTopicService {
 	  public List<Subtopic> findByBatchId(int batchId) {
 	    //return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
 		  return subtopicRepository.findByBatchid(batchId);
+	  }
+	  public List<Subtopic> findByBatchId(int batchId, Pageable pageRequest) {
+		  return subtopicRepository.findByBatchid(batchId, pageRequest);
 	  }
 
 	  /**

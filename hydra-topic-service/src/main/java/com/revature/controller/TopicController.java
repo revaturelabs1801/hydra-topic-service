@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.exception.CustomException;
-import com.revature.exception.NoSubtopicException;
+import com.revature.exception.NoContentException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicType;
@@ -95,7 +95,7 @@ class TopicController {
 	    	return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
 	    }
 	    else {
-	    	throw new NoSubtopicException("No Content Added");
+	    	throw new NoContentException("No Content Added");
 	    }
 	  }
 

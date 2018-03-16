@@ -4,14 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NO_CONTENT)
-public class NoSubtopicException extends RuntimeException{
+public class NoContentException extends RuntimeException{
 	  
 
-	  public NoSubtopicException(Throwable message) {
+	  public NoContentException(Throwable message) {
 		  super(message);
 	  }
 	  
-	  public NoSubtopicException(String message) {
+	  public NoContentException(String message) {
 		  super(message);
 	  }
 	  
