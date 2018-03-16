@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.exception.NoSubtopicException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
@@ -30,33 +30,25 @@ public class SubtopicServerController {
 	SubTopicService subTopicService;
 	
 	
-/*	@PostMapping("addsubtopic")
-	  public <Subtopic> addSubtopic(@RequestBody Subtopic st) {
-	    st = subTopicService.updateSubtopic(st);
-	    return  <Subtopic>(st, HttpStatus.CREATED);
-	  }*/
 	
 	
 	/*
 	 * Works, gets all subtopics associated with a batch
 	 */
 	@GetMapping("/getSubtopicByBatchId/{batchId}")
-	public  List<Subtopic> getSubtopicByBatch(@PathVariable int batchId) throws NoSubtopicException{
+	public  List<Subtopic> getSubtopicByBatch(@PathVariable int batchId){
 		return subTopicService.findByBatchId(batchId);
 	}
 	
 	//Need to fix database thing
 	@GetMapping("/getStatus/{name}")
-	public SubtopicStatus getStatus(@PathVariable String name) throws NoSubtopicException{
-		System.out.println(name);
-		SubtopicStatus s=subTopicService.getStatus(name);
-		System.out.println(s);
-		return s;
+	public SubtopicStatus getStatus(@PathVariable String name) {
+		return subTopicService.getStatus(name);
 	}
 	
 	//Do we need this?
-	@GetMapping("getNumberofSubtopics")
-	public  Long getNumberOfSubtopics(@RequestBody int batchId)throws NoSubtopicException{
+	@GetMapping("getNumberofSubtopics/{batchId}")
+	public  Long getNumberOfSubtopics(@PathVariable int batchId){
 		return subTopicService.getNumberOfSubtopics(batchId);
 	}
 	
@@ -65,7 +57,7 @@ public class SubtopicServerController {
 	 * Gets all SubtopicNames
 	 */
 	@GetMapping("getAllSubtopicNames")
-	public  List<SubtopicName> getAllSubtopics() throws NoSubtopicException{
+	public  List<SubtopicName> getAllSubtopics(){
 		return  subTopicService.getAllSubtopics();
 	}
 	
@@ -74,57 +66,55 @@ public class SubtopicServerController {
 	 * Gets all Subtopics
 	 */
 	@GetMapping("getAllSubtopics")
-	public  List<Subtopic> getSubtopics() throws NoSubtopicException{
+	public  List<Subtopic> getSubtopics(){
 		return subTopicService.getSubtopics();
 	}
 	
 	//Do we need this?
 	@GetMapping("getSubtopicByName/{name}")
-	public  SubtopicName getSubtopicName(@PathVariable String name) throws NoSubtopicException{
+	public  SubtopicName getSubtopicName(@PathVariable String name){
 		return subTopicService.getSubtopicName(name);
 	}
 	
 	//Works
 	@GetMapping("getSubtopicByType/{type}")
-	public  List<SubtopicName> getSubtopicType(@PathVariable int type) throws NoSubtopicException{
+	public  List<SubtopicName> getSubtopicType(@PathVariable int type){
 		return  subTopicService.getSubtopicByType(type);
 	}
 	
 	//Don't know how to test
-	@GetMapping("addOrUpdateSubtopicName")
-	public  SubtopicName addOrUpdateSubtopicName(@PathVariable SubtopicName subtopicName) throws NoSubtopicException{
+	@PostMapping("addOrUpdateSubtopicName")
+	public  SubtopicName addOrUpdateSubtopicName(@RequestBody SubtopicName subtopicName){
 		return subTopicService.addOrUpdateSubtopicName(subtopicName);
 	}
 
 	//Works
 	@GetMapping("removeSubtopicFromBatch/{subtopicId}")
-	public  Boolean removeSubtopicFromBatch(@PathVariable int subtopicId) throws NoSubtopicException{
-		System.out.println(subtopicId);
+	public  Boolean removeSubtopicFromBatch(@PathVariable int subtopicId){
 		return  subTopicService.removeSubtopicFromBatch(subtopicId);
 	}
 	
 	//Working on it
-	@GetMapping("removeAllSubtopicsFromBatch")
-	public  Boolean removeAllSubtopicsFromBatch(@RequestBody int batchId) throws NoSubtopicException{
+	@PostMapping("removeAllSubtopicsFromBatch")
+	public  Boolean removeAllSubtopicsFromBatch(@RequestBody int batchId){
 		return subTopicService.removeAllSubtopicsFromBatch(batchId);
 	}
 	
 	//Working on it
-	@GetMapping("updateSubtopicStatus")
-	public  Subtopic updateSubtopicStatus(@RequestBody Subtopic subtopic) throws NoSubtopicException{
+	@PostMapping("updateSubtopicStatus")
+	public  Subtopic updateSubtopicStatus(@RequestBody Subtopic subtopic){
 		return subTopicService.updateSubtopicStatus(subtopic);
 	}
 
 	//Works
 	@GetMapping("findTop1ByBatchId/{batchId}")
-	public  List<Subtopic> findTop1ByBatchId(@PathVariable int batchId) throws NoSubtopicException{
-		System.out.println("Test");
+	public  List<Subtopic> findTop1ByBatchId(@PathVariable int batchId){
 		return subTopicService.findTop1ByBatchId(batchId);
 	}
 	
-	//Not ure how to test
-	@GetMapping("saveSubtopics")
-	public  List<Subtopic> saveSubtopics(@RequestBody List<Subtopic> subtopics) throws NoSubtopicException{
+	//Not sure how to test
+	@PostMapping("saveSubtopics")
+	public  List<Subtopic> saveSubtopics(@RequestBody List<Subtopic> subtopics){
 		return subTopicService.saveSubtopics(subtopics);
 	}
 	

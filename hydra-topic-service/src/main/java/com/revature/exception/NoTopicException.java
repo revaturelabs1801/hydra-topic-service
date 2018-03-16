@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NO_CONTENT)
 public class NoTopicException extends RuntimeException {
-	  private static final long serialVersionUID = 8632434538067813982L;
 	  
 
 	  public NoTopicException(Throwable message) {

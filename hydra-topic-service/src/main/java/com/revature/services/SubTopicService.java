@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.exception.CustomException;
-import com.revature.exception.NoSubtopicException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
@@ -92,7 +91,7 @@ public class SubTopicService {
 		 * @author Samuel Louis-Pierre, Avant Mathur, (1712-dec10-java-Steve) Jordan
 		 *         DeLong
 		 */
-		public Subtopic updateSubtopic(Subtopic subtopic)  throws NoSubtopicException{
+		public Subtopic updateSubtopic(Subtopic subtopic) {
 			Long newDate = subtopic.getSubtopicDate().getTime();
 			subtopic.setSubtopicDate(new Timestamp(newDate));
 
@@ -100,7 +99,7 @@ public class SubTopicService {
 			return subtopic;
 		}
 
-		public SubtopicStatus getStatus(String name) throws NoSubtopicException{
+		public SubtopicStatus getStatus(String name) {
 			return subtopicStatusRepository.findByName(name);
 		}
 
@@ -113,15 +112,15 @@ public class SubTopicService {
 	   * 
 	   * @author Michael Garza, Gary LaMountain
 	   */
-	  public Long getNumberOfSubtopics(int batchId) throws NoSubtopicException{
+	  public Long getNumberOfSubtopics(int batchId) {
 	    return subtopicRepository.countSubtopicsByBatchid(batchId);
 	  }
 
-	  public List<SubtopicName> getAllSubtopics() throws NoSubtopicException{
+	  public List<SubtopicName> getAllSubtopics() {
 	    return subtopicNameRepository.findAll();
 	  }
 
-	  public List<Subtopic> getSubtopics() throws NoSubtopicException{
+	  public List<Subtopic> getSubtopics() {
 		 
 	    return subtopicRepository.findAll();
 	    
@@ -141,7 +140,7 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  public List<Subtopic> findByBatchId(int batchId) throws NoSubtopicException{
+	  public List<Subtopic> findByBatchId(int batchId) {
 	    //return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
 		  return subtopicRepository.findByBatchid(batchId);
 	  }
@@ -152,7 +151,7 @@ public class SubTopicService {
 	   *          name
 	   * @return SubtopicName
 	   */
-	  public SubtopicName getSubtopicName(String name) throws NoSubtopicException{
+	  public SubtopicName getSubtopicName(String name) {
 	    return subtopicNameRepository.findByName(name);
 	  }
 
