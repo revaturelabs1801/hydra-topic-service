@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.revature.exception.CustomException;
+import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
@@ -73,7 +74,6 @@ public class SubTopicService {
 	    Timestamp ts = new Timestamp(time);
 
 	    //Need to do batch stuff
-	   // b = batchRepository.findByid(batch);
 	    st = subtopicNameRepository.findByid(subtopic);
 	    ss = subtopicStatusRepository.findByid(1);
 
@@ -316,12 +316,10 @@ public class SubTopicService {
 					subtopic.setStatus(subStatus);
 					
 					//set date to the batch start date
-					//Batch batch= RequestController.findBatchById(batchid);
-					//System.out.println(batch);
+					Batch b = restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/"+ batchid , Batch.class);
+
 					
-					//cal.setTime(batch.getStartDate());
-					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-					cal.setTime(timestamp);
+					cal.setTime(b.getStartDate());
 					//set the time
 					cal.set(Calendar.HOUR_OF_DAY, randomNum);
 					cal.set(Calendar.MINUTE, 0);

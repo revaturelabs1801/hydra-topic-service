@@ -74,8 +74,7 @@ public class SubtopicServerController {
 	 */
 	@GetMapping("getAllSubtopicNames")
 	public  List<SubtopicName> getAllSubtopics(){
-		Batch batch = restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/50" /*+ batchId*/ , Batch.class);
-		System.out.println(batch);
+		//Batch batch = restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/50" /*+ batchId*/ , Batch.class);
 		return  subTopicService.getAllSubtopics();
 	}
 	
