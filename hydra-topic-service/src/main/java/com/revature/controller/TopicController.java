@@ -90,6 +90,7 @@ class TopicController {
 	  public ResponseEntity<TopicName> addTopicName(@PathVariable String newTopicName) {
 	    TopicName topic = new TopicName();
 	    topic.setName(newTopicName);
+	    System.out.println(topic);
 	    TopicName topicUpdate = topicService.addOrUpdateTopicName(topic);
 	    if(topicUpdate != null) {
 	    	return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
