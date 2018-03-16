@@ -1,41 +1,82 @@
 package com.revature.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.sql.Timestamp;
 
-import org.springframework.stereotype.Component;
+import com.revature.logging.JSONify;
 
-@Component
-@Entity
-@Table(name = "batches")
 public class Batch {
-	
-	@Id
-	@Column(name = "Batch_ID")
-	@SequenceGenerator(name = "BATCH_ID_SEQ", sequenceName = "BATCH_ID_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BATCH_ID_SEQ")
-	private int id;
+
+	private Integer id;
+
+	private String name;
+
+	private Timestamp startDate;
+
+	private Timestamp endDate;
+
 
 	public Batch() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Batch(int batchId) {
 		super();
-		this.id = batchId;
 	}
 
-	public int getBatchId() {
+	public Batch(Integer id, String name, Timestamp startDate, Timestamp endDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public Batch(String name, Timestamp startDate, Timestamp endDate) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setBatchId(int batchId) {
-		this.id = batchId;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
+
+	public Timestamp getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Timestamp endDate) {
+		this.endDate = endDate;
+	}
+
+
+	@Override
+	public String toString() {
+		JSONify jsonify = new JSONify();
+		String json = "{" + jsonify.quotify("Batches") + ":{";
+		json += jsonify.addKey("batchesID") + jsonify.addValue(id.toString());
+		json += jsonify.addKey("batchesName") + jsonify.addValue(name);
+		json += jsonify.addKey("batchesStartDate") + jsonify.addValue(startDate.toString());
+		json += jsonify.addKey("batchesEndDate") + jsonify.addValue(endDate.toString());
+		json += "}}";
+		return json;
 	}
 
 }

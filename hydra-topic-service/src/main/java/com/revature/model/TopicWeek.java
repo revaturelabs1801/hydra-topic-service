@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Component
 @Entity
 @Table(name = "Topic_Week")
@@ -31,10 +33,9 @@ public class TopicWeek {
 	@Autowired
 	private TopicName topic;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "Topic_Batch_ID", referencedColumnName = "Batch_ID")
-	@Autowired
-	private Batch batch;
+
+	@JoinColumn(name = "Topic_Batch_ID")
+	private int batchid;
 
 	@Column(name = "Topic_Week_Number")
 	private Integer weekNumber;
@@ -43,18 +44,18 @@ public class TopicWeek {
 		super();
 	}
 
-	public TopicWeek(Integer id, TopicName topic, Batch batch, Integer weekNumber) {
+	public TopicWeek(Integer id, TopicName topic, int batch, Integer weekNumber) {
 		super();
 		this.id = id;
 		this.topic = topic;
-		this.batch = batch;
+		this.batchid = batch;
 		this.weekNumber = weekNumber;
 	}
 
-	public TopicWeek(TopicName topic, Batch batch, Integer weekNumber) {
+	public TopicWeek(TopicName topic, int batch, Integer weekNumber) {
 		super();
 		this.topic = topic;
-		this.batch = batch;
+		this.batchid = batch;
 		this.weekNumber = weekNumber;
 	}
 
@@ -74,12 +75,12 @@ public class TopicWeek {
 		this.topic = topic;
 	}
 
-	public Batch getBatch() {
-		return batch;
+	public int getBatch() {
+		return batchid;
 	}
 
-	public void setBatch(Batch batch) {
-		this.batch = batch;
+	public void setBatch(int batch) {
+		this.batchid = batch;
 	}
 
 	public Integer getWeekNumber() {
@@ -92,7 +93,7 @@ public class TopicWeek {
 
 	@Override
 	public String toString() {
-		return "TopicWeek [id=" + id + ", topic=" + topic + ", batch=" + batch + ", weekNumber=" + weekNumber + "]";
+		return "TopicWeek [id=" + id + ", topic=" + topic + ", batchID=" + batchid + ", weekNumber=" + weekNumber + "]";
 	}
 
 }

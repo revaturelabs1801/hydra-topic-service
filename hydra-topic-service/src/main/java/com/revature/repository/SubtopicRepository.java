@@ -1,19 +1,19 @@
 package com.revature.repository;
 
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import com.revature.model.Batch;
-import com.revature.model.Subtopic;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.revature.model.Subtopic;
+import com.revature.model.SubtopicName;
+import com.revature.model.SubtopicStatus;
 
 
 @RepositoryRestResource
-public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
-	List<Subtopic> findByBatch(Batch batch);
+public interface SubtopicRepository extends JpaRepository<Subtopic, Integer>{
 
 	/**
 	 * Counts the number of subtopics in the database by matching it with the
@@ -25,19 +25,19 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	 * 
 	 * 
 	 */
-	Long countSubtopicsByBatchId(int batchId);
-	
-	
+	Long countSubtopicsByBatchid(int batchId);
 	/**
-	 * Generate a list of Subtopics by a Batch object and a specific
-	 * page from a Pageable object.
-	 * 
-	 * @param batch
-	 * @param pageable
-	 * @return list of Subtopics
-	 * 
-	 * @author  Michael Garza, Gary LaMountain
+	 * Finds one subtopic in the batch
+	 * @param batchId
+	 * @return
 	 */
-	List<Subtopic> findByBatch(Batch batch, Pageable pageable);
+	List<Subtopic> findTop1ByBatchid(int batchId);
+
+	List<Subtopic> findByBatchid(int batchId);
+	List<Subtopic> findByBatchid(int batchId, Pageable page);
+	void deleteByBatchid(int batchId);
+	List<Subtopic> findSubtopicByStatus(SubtopicStatus status);
+	SubtopicName findSubtopicBySubtopicName(SubtopicName name);
+
 
 }
