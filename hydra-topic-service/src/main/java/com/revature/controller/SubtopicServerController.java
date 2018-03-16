@@ -4,21 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
-import com.revature.model.SubtopicType;
-import com.revature.model.TopicName;
 import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
@@ -36,99 +32,104 @@ public class SubtopicServerController {
 	SubTopicService subTopicService;
 	
 	
-/*	@PostMapping("addsubtopic")
-	  public ResponseEntity<Subtopic> addSubtopic(@RequestBody Subtopic st) {
-	    st = subTopicService.updateSubtopic(st);
-	    return new ResponseEntity<Subtopic>(st, HttpStatus.CREATED);
-	  }*/
 	
 	
-	//Not sure how to test
-	@GetMapping("/getSubtopicByBatch")
-	public ResponseEntity <List<Subtopic>> getSubtopicByBatch(@RequestBody Batch batch){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.getSubtopicByBatch(batch),HttpStatus.OK);
-	}
-	
-	//Need to fix database thing
-	@GetMapping("/getStatus/{name}")
-	public ResponseEntity<SubtopicStatus> getStatus(@PathVariable String name) {
-		System.out.println(name);
-		SubtopicStatus s=subTopicService.getStatus(name);
-		System.out.println(s);
-		return new ResponseEntity<SubtopicStatus>(s,HttpStatus.OK);
-	}
-	
-	//Do we need this?
-	@GetMapping("getNumberofSubtopics")
-	public ResponseEntity <Long> getNumberOfSubtopics(@RequestBody int batchId){
-		return new ResponseEntity<Long> (subTopicService.getNumberOfSubtopics(batchId),HttpStatus.OK);
+	/*
+	 * Works, gets all subtopics associated with a batch
+	 */
+	@GetMapping("/getSubtopicByBatchId/{batchId}")
+	public  List<Subtopic> getSubtopicByBatch(@PathVariable int batchId){
+		return subTopicService.findByBatchId(batchId);
 	}
 	
 	//Works
-	@GetMapping("getAllSubTopics")
-	public ResponseEntity <List<SubtopicName>> getAllSubtopics(){
-		return new ResponseEntity<List<SubtopicName>> (subTopicService.getAllSubtopics(),HttpStatus.OK);
+	@GetMapping("/getSubtopicsByStatus/{name}")
+	public List<Subtopic> getStatus(@PathVariable String name) {
+		SubtopicStatus s=subTopicService.getStatus(name);
+		return subTopicService.getSubtopicsByStatus(s);
 	}
 	
-	//Working on it
-	@GetMapping("getSubtopics")
-	public ResponseEntity <List<Subtopic>> getSubtopics(){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.getSubtopics(),HttpStatus.OK);
+
+	@GetMapping("getNumberofSubtopics/{batchId}")
+	public Long getNumberOfSubtopics(@PathVariable int batchId){
+		return subTopicService.getNumberOfSubtopics(batchId);
+	}
+	
+	/*
+	 * Works
+	 * Gets all SubtopicNames
+	 */
+	@GetMapping("getAllSubtopicNames")
+	public  List<SubtopicName> getAllSubtopics(){
+		return  subTopicService.getAllSubtopics();
+	}
+	
+	/*
+	 * Works
+	 * Gets all Subtopics
+	 */
+	@GetMapping("getAllSubtopics")
+	public  List<Subtopic> getSubtopics(){
+		return subTopicService.getSubtopics();
 	}
 	
 	//Do we need this?
 	@GetMapping("getSubtopicByName/{name}")
-	public ResponseEntity <SubtopicName> getSubtopicName(@PathVariable String name){
-		return new ResponseEntity<SubtopicName> (subTopicService.getSubtopicName(name),HttpStatus.OK);
+	public  SubtopicName getSubtopicName(@PathVariable String name){
+		return subTopicService.getSubtopicName(name);
 	}
 	
 	//Works
 	@GetMapping("getSubtopicByType/{type}")
-	public ResponseEntity <List<SubtopicName>> getSubtopicType(@PathVariable int type){
-		return new ResponseEntity<List<SubtopicName>> (subTopicService.getSubtopicByType(type),HttpStatus.OK);
+	public  List<SubtopicName> getSubtopicType(@PathVariable int type){
+		return  subTopicService.getSubtopicByType(type);
 	}
 	
-	//Working on it
-	@GetMapping("addOrUpdateSubtopicName")
-	public ResponseEntity <SubtopicName> addOrUpdateSubtopicName(@RequestBody SubtopicName subtopicName){
-		return new ResponseEntity<SubtopicName> (subTopicService.addOrUpdateSubtopicName(subtopicName),HttpStatus.OK);
-	}
-	
-	//Working on it
-	@GetMapping("removeSubtopicFromBatch")
-	public ResponseEntity <Boolean> removeSubtopicFromBatch(@RequestBody int subtopicId){
-		return new ResponseEntity<Boolean> (subTopicService.removeSubtopicFromBatch(subtopicId),HttpStatus.OK);
-	}
-	
-	//Working on it
-	@GetMapping("removeAllSubtopicsFromBatch")
-	public ResponseEntity <Boolean> removeAllSubtopicsFromBatch(@RequestBody int batchId){
-		return new ResponseEntity<Boolean> (subTopicService.removeAllSubtopicsFromBatch(batchId),HttpStatus.OK);
-	}
-	
-	//Working on it
-	@GetMapping("updateSubtopicStatus")
-	public ResponseEntity <Subtopic> updateSubtopicStatus(@RequestBody Subtopic subtopic){
-		return new ResponseEntity<Subtopic> (subTopicService.updateSubtopicStatus(subtopic),HttpStatus.OK);
+	//Don't know how to test
+	@PostMapping("addOrUpdateSubtopicName")
+	public  SubtopicName addOrUpdateSubtopicName(@RequestBody SubtopicName subtopicName){
+		return subTopicService.addOrUpdateSubtopicName(subtopicName);
 	}
 
-	//Working on it
-	@GetMapping("findTop1ByBatchId")
-	public ResponseEntity <List<Subtopic>> findTop1ByBatchId(@RequestBody int batchId){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.findTop1ByBatchId(batchId),HttpStatus.OK);
+	//Works
+	@GetMapping("removeSubtopicFromBatch/{subtopicId}")
+	public  Boolean removeSubtopicFromBatch(@PathVariable int subtopicId){
+		return  subTopicService.removeSubtopicFromBatch(subtopicId);
 	}
 	
 	//Working on it
-	@GetMapping("saveSubtopics")
-	public ResponseEntity <List<Subtopic>> saveSubtopics(@RequestBody List<Subtopic> subtopics){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.saveSubtopics(subtopics),HttpStatus.OK);
+	@PostMapping("removeAllSubtopicsFromBatch")
+	public  Boolean removeAllSubtopicsFromBatch(@RequestBody int batchId){
+		return subTopicService.removeAllSubtopicsFromBatch(batchId);
 	}
 	
 	//Working on it
-	@GetMapping("mapCurriculumSubtopicsToSubtopics")
-	public ResponseEntity <List<Subtopic>> mapCurriculumSubtopicstoSubtopics(@RequestBody Map<Integer, List<CurriculumSubtopic>> map, @RequestBody Batch batch ){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.mapCurriculumSubtopicsToSubtopics(map, batch),HttpStatus.OK);
+	@PostMapping("updateSubtopicStatus")
+	public  Subtopic updateSubtopicStatus(@RequestBody Subtopic subtopic){
+		return subTopicService.updateSubtopicStatus(subtopic);
 	}
+
+	//Works
+	@GetMapping("findTop1ByBatchId/{batchId}")
+
+	public  List<Subtopic> findTop1ByBatchId(@PathVariable int batchId){
+		return subTopicService.findTop1ByBatchId(batchId);
+		}
+	
+	//Not sure how to test
+
+	@PostMapping("saveSubtopics")
+	public  List<Subtopic> saveSubtopics(@RequestBody List<Subtopic> subtopics){
+		return subTopicService.saveSubtopics(subtopics);
+	}
+	
+	//Working on it
+
+	@GetMapping("mapCurriculumSubtopicsToSubtopics/{batchid}")
+	public List<Subtopic> mapCurriculumSubtopicstoSubtopics(@RequestBody Map<Integer, List<CurriculumSubtopic>> map, @PathVariable int batchid ){
+		return subTopicService.mapCurriculumSubtopicsToSubtopics(map, batchid);
+	}
+
 }
 
 

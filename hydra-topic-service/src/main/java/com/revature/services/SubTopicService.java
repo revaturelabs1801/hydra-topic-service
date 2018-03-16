@@ -14,8 +14,11 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.revature.controller.RequestController;
+import com.revature.exception.CustomException;
 import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
@@ -33,9 +36,6 @@ public class SubTopicService {
 	  @Autowired
 	  SubtopicRepository subtopicRepository;
 
-	  /*@Autowired
-	  BatchRepository batchRepository;*/
-
 	  @Autowired
 	  SubtopicNameRepository subtopicNameRepository;
 
@@ -45,9 +45,8 @@ public class SubTopicService {
 	  @Autowired
 	  SubtopicTypeRepository subtopicTypeRepository;
 
-	  public void addSubtopic(int subtopic, int batch) /*throws CustomException*/ {
+	  public void addSubtopic(int subtopic, int batch) throws CustomException {
 	    Subtopic s = new Subtopic();
-	    Batch b;
 	    SubtopicName st;
 	    SubtopicStatus ss;
 	    Date date = new Date();
@@ -57,7 +56,7 @@ public class SubTopicService {
 	      date = dateFormat.parse("23/09/2017");
 	    } catch (Exception e) {
 	    	System.out.println("Error");
-	      //LogManager.getRootLogger().error(e);
+	      LogManager.getRootLogger().error(e);
 	    }
 	    long time = date.getTime();
 	    Timestamp ts = new Timestamp(time);
@@ -69,7 +68,7 @@ public class SubTopicService {
 
 	    
 	    //Need to do batch stuff
-	    //s.setBatch(b);
+	    s.setBatch(batch);
 	    s.setSubtopicName(st);
 	    s.setStatus(ss);
 	    s.setSubtopicDate(ts);
@@ -77,13 +76,10 @@ public class SubTopicService {
 	    subtopicRepository.save(s);
 	  }
 
-		public List<Subtopic> getSubtopicByBatch(Batch batch) {
-			return subtopicRepository.findByBatch(batch);
+		public List<Subtopic> getSubtopicByBatchId(int batchId) {
+			return subtopicRepository.findByBatchid(batchId);
 		}
-
-		/*public List<Subtopic> getSubtopicByBatchId(int batchId) {
-			return subtopicRepository.findByBatch(batchRepository.findByid(batchId));
-		}*/
+		
 
 		/**
 		 * 
@@ -105,6 +101,17 @@ public class SubTopicService {
 		public SubtopicStatus getStatus(String name) {
 			return subtopicStatusRepository.findByName(name);
 		}
+		
+		  /**
+		   * 
+		   * @param int
+		   *          type
+		   * @return List of Subtopics by status
+		   */
+		  public List<Subtopic> getSubtopicsByStatus(SubtopicStatus status) {
+			  System.out.println("Here");
+		    return subtopicRepository.findSubtopicByStatus(status);
+		  }
 
 	  /**
 	   * Service method to return the number of Subtopics by matching their ids with
@@ -116,7 +123,7 @@ public class SubTopicService {
 	   * @author Michael Garza, Gary LaMountain
 	   */
 	  public Long getNumberOfSubtopics(int batchId) {
-	    return subtopicRepository.countSubtopicsByBatchId(batchId);
+	    return subtopicRepository.countSubtopicsByBatchid(batchId);
 	  }
 
 	  public List<SubtopicName> getAllSubtopics() {
@@ -143,9 +150,13 @@ public class SubTopicService {
 	   *         Authors: Michael Garza
 	   *         Gary LaMountain
 	   */
-	  /*public List<Subtopic> findByBatchId(int batchId, PageRequest pageRequest) {
-	    return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
-	  }*/
+	  public List<Subtopic> findByBatchId(int batchId) {
+	    //return subtopicRepository.findByBatch(batchRepository.findByid(batchId), pageRequest);
+		  return subtopicRepository.findByBatchid(batchId);
+	  }
+	  public List<Subtopic> findByBatchId(int batchId, Pageable pageRequest) {
+		  return subtopicRepository.findByBatchid(batchId, pageRequest);
+	  }
 
 	  /**
 	   * 
@@ -155,6 +166,16 @@ public class SubTopicService {
 	   */
 	  public SubtopicName getSubtopicName(String name) {
 	    return subtopicNameRepository.findByName(name);
+	  }
+	  
+	  /**
+	   * 
+	   * @param String
+	   *          name
+	   * @return List of subtopic by SubtopicName
+	   */
+	  public SubtopicName getSubtopicByName(SubtopicName name) {
+	    return subtopicRepository.findSubtopicBySubtopicName(name);
 	  }
 
 	  /**
@@ -166,6 +187,8 @@ public class SubTopicService {
 	  public SubtopicType getSubtopicType(int type) {
 	    return subtopicTypeRepository.findByid(type);
 	  }
+	  
+
 	  
 	  /**
 	   * 
@@ -219,9 +242,7 @@ public class SubTopicService {
 	  public boolean removeAllSubtopicsFromBatch(int batchId) {
 		 //Need to do batch stuff
 		  try {
-			  Batch batch = new Batch();
-			 // batch.setId(batchId);
-			  //subtopicRepository.deleteByBatch(batch);
+			  subtopicRepository.deleteByBatchid(batchId);
 			  return true;
 		  } catch(IllegalArgumentException e) {
 			  return false;
@@ -239,13 +260,14 @@ public class SubTopicService {
 	  	 * @return List<Subtopic>
 	  	 */
 		public List<Subtopic> findTop1ByBatchId(int batchId){
-			return subtopicRepository.findTop1ByBatchId(batchId);
+			return subtopicRepository.findTop1ByBatchid(batchId);
 		}
 		
 		public List<Subtopic> saveSubtopics(List<Subtopic> subtopics) {
 			//return subtopicRepository.save(subtopics);
 			return subtopicRepository.saveAll(subtopics);
 		}
+
 		
 	  	/**
 	  	 * Maps curriculum subtopics into subtopics. Each subtopic date is determined by the start date of the batch offset by the week and day of the corresponding curriculum subtopic. 
@@ -253,7 +275,7 @@ public class SubTopicService {
 	  	 * @param map, batch
 	  	 * @return List<Subtopic>
 	  	 */
-		public List<Subtopic> mapCurriculumSubtopicsToSubtopics(Map<Integer, List<CurriculumSubtopic>> map, Batch batch){
+		public List<Subtopic> mapCurriculumSubtopicsToSubtopics(Map<Integer, List<CurriculumSubtopic>> map, int batchid){
 			
 			SubtopicStatus subStatus = subtopicStatusRepository.findByName("Pending");
 			ArrayList<Subtopic> subtopics = new ArrayList<>();
@@ -272,12 +294,15 @@ public class SubTopicService {
 				    
 					Subtopic subtopic = new Subtopic();
 					
-					subtopic.setBatch(batch);
-					//subtopic.setSubtopicName(curriculumSubtopic.getCurriculumSubtopicNameId());
+					subtopic.setBatch(batchid);
+					subtopic.setSubtopicName(curriculumSubtopic.getCurriculumSubtopicNameId());
 					subtopic.setStatus(subStatus);
 					
 					//set date to the batch start date
-					//cal.setTime(batch.getStartDate());
+					Batch batch= RequestController.findBatchById(batchid);
+					System.out.println(batch);
+					
+					cal.setTime(batch.getStartDate());
 					
 					//set the time
 					cal.set(Calendar.HOUR_OF_DAY, randomNum);
@@ -287,7 +312,7 @@ public class SubTopicService {
 					
 					//determine how many days offset from the start date the new subtopic will be
 					//Need to do curriculum
-					int week = 3/*curriculumSubtopic.getCurriculumSubtopicWeek()*/;
+					int week = curriculumSubtopic.getCurriculumSubtopicWeek();
 					int absDay = (week-1)*7 + day - 1;
 					
 					//determine what the actual date on the calendar will be by adding the offset to the currently set calendar day (the batch start date)
