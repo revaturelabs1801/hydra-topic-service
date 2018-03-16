@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exception.BadRequestException;
 import com.revature.exception.CustomException;
+import com.revature.exception.NoContentException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicStatus;
 import com.revature.model.TopicName;
@@ -56,12 +58,12 @@ public class CalendarController {
 			@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
 
 		if (batchId == null || pageNumber == null || pageSize == null || pageSize <= 0) {
-			//throw new CustomException("TODO SEND BAD REQUEST");
+			throw new BadRequestException("Could not find valid subtopic");
 		}
 
 		List<Subtopic> subtopicLst = subtopicService.findByBatchId(batchId, new PageRequest(pageNumber, pageSize));
 		if (subtopicLst.isEmpty()) {
-			//throw new CustomException("TODO SEND NO CONTENT");
+			throw new NoContentException("Could not find any subtopics");
 		}
 		return subtopicLst;
 	}
@@ -78,12 +80,12 @@ public class CalendarController {
 	@GetMapping("subtopics/{batchId}")
 	public List<Subtopic> getSubtopicsByBatch(@PathVariable Integer batchId) {
 		if (batchId == null) {
-			//throw new CustomException("TODO SEND BAD REQUEST");
+			throw new BadRequestException("Could not find valid subtopic");
 		}
 
 		List<Subtopic> subtopicLst = subtopicService.getSubtopicByBatchId(batchId);
 		if (subtopicLst.isEmpty()) {
-			//throw new CustomException("TODO SEND NO CONTENT");
+			throw new NoContentException("Could not find any subtopics");
 		}
 		return subtopicLst;
 	}
@@ -119,12 +121,12 @@ public class CalendarController {
 	@GetMapping("topics/{batchId}")
 	public List<TopicWeek> getTopicsByBatchPag(@PathVariable Integer batchId) {
 		if (batchId == null) {
-			//throw new CustomException("TODO SEND BAD REQUEST");
+			throw new BadRequestException("Could not find valid topic");
 		}
 
 		List<TopicWeek> topicLst = topicService.getTopicByBatchId(batchId);
 		if (topicLst.isEmpty()) {
-			//throw new CustomException("TODO SEND NO CONTENT");
+			throw new NoContentException("Could not find any topics");
 		}
 		return topicLst;
 	}
@@ -142,7 +144,7 @@ public class CalendarController {
 	@PostMapping("dateupdate/{subtopicId}/{batchId}/{date}")
 	public boolean changeTopicDate(@PathVariable Integer subtopicId, @PathVariable Integer batchId, @PathVariable Long date) {
 		if (subtopicId == null || batchId == null || date == null) {
-			//throw new CustomException("TODO SEND BAD REQUEST");
+			throw new BadRequestException("Could not find valid subtopic");
 		}
 
 		List<Subtopic> topics = subtopicService.getSubtopicByBatchId(batchId);
@@ -153,8 +155,8 @@ public class CalendarController {
 				return true;
 			}
 		}
-		//throw new CustomException("TODO SEND NO CONTENT");
-		return false;
+		throw new NoContentException("Could not find any subtopics");
+		
 	}
 
 	/**
@@ -170,7 +172,7 @@ public class CalendarController {
 	@GetMapping("statusupdate/{subtopicId}/{batchId}/{status}")
 	public boolean updateTopicStatus(@PathVariable Integer subtopicId, @PathVariable Integer batchId, @PathVariable String status) {
 		if (subtopicId == null || batchId == null || status == null) {
-			//throw new CustomException("TODO SEND BAD REQUEST");
+			throw new BadRequestException("Could not find valid subtopic");
 		}
 
 		SubtopicStatus subtopicStatus = subtopicService.getStatus(status);
@@ -182,8 +184,8 @@ public class CalendarController {
 				return true; 
 			}
 		}
-		//throw new CustomException("TODO SEND NO CONTENT");
-		return false;
+		throw new NoContentException("Could not find any subtopics");
+		
 	}
 
 	/**

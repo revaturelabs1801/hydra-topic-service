@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class SubtopicInternalException extends RuntimeException {
+public class InternalException extends RuntimeException {
 	
-	  public SubtopicInternalException(Throwable message) {
+	  public InternalException(Throwable message) {
 		  super(message);
 	  }
 	  
-	  public SubtopicInternalException(String message) {
+	  public InternalException(String message) {
 		  super(message);
 	  }
 	

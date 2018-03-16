@@ -19,9 +19,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.exception.CustomException;
-import com.revature.exception.NoSubtopicException;
-import com.revature.exception.SubtopicInternalException;
-import com.revature.exception.TopicBadRequestException;
+import com.revature.exception.NoContentException;
+import com.revature.exception.InternalException;
+import com.revature.exception.BadRequestException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicType;
@@ -100,7 +100,7 @@ public class SubTopicController {
 			if (subtopic != null) {
 				return subtopic;
 			} else {
-				throw new TopicBadRequestException("Bad Request");
+				throw new BadRequestException("Bad Request");
 			}
 
 		}
@@ -115,7 +115,7 @@ public class SubTopicController {
 			if (topicUpdate != null) {
 				return topicUpdate;
 			} else {
-				throw new NoSubtopicException("Subtopic not found");
+				throw new NoContentException("Subtopic not found");
 			}
 		}
 
@@ -133,7 +133,7 @@ public class SubTopicController {
 			if (subTopicService.removeSubtopicFromBatch(subtopicId)) {
 				return true;
 			} else {
-				throw new SubtopicInternalException("Internal Error");
+				throw new InternalException("Internal Error");
 			}
 		}
 
@@ -147,7 +147,7 @@ public class SubTopicController {
 		@GetMapping("ispopulated/{batchId}")
 		public boolean isPopulated(@PathVariable int batchId) {
 			if (subTopicService.findTop1ByBatchId(batchId).isEmpty()) {
-				throw new NoSubtopicException("Nothing to return");
+				throw new NoContentException("Nothing to return");
 			} else {
 				return true;
 			}
@@ -165,7 +165,7 @@ public class SubTopicController {
 			if(subTopicService.removeAllSubtopicsFromBatch(batchId)) {
 				return true;
 			} else {
-				throw new SubtopicInternalException("Internal Error");
+				throw new InternalException("Internal Error");
 			}
 		}
 
