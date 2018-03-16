@@ -45,24 +45,21 @@ public class SubtopicServerController {
 	 * Works, gets all subtopics associated with a batch
 	 */
 	@GetMapping("/getSubtopicByBatchId/{batchId}")
-	public ResponseEntity <List<Subtopic>> getSubtopicByBatch(@PathVariable int batchId){
-		return new ResponseEntity<List<Subtopic>> (subTopicService.findByBatchId(batchId),HttpStatus.OK);
+	public List<Subtopic> getSubtopicByBatch(@PathVariable int batchId){
+		return subTopicService.findByBatchId(batchId);
 	}
 	
 	//Works
 	@GetMapping("/getSubtopicsByStatus/{name}")
-	public ResponseEntity<List<Subtopic>> getStatus(@PathVariable String name) {
-		System.out.println(name);
+	public List<Subtopic> getStatus(@PathVariable String name) {
 		SubtopicStatus s=subTopicService.getStatus(name);
-		System.out.println(s);
-		List<Subtopic> s1=subTopicService.getSubtopicsByStatus(s);
-		return new ResponseEntity<List<Subtopic>>(s1,HttpStatus.OK);
+		return subTopicService.getSubtopicsByStatus(s);
 	}
 	
 	//Works
 	@GetMapping("getNumberofSubtopics/{batchId}")
-	public ResponseEntity <Long> getNumberOfSubtopics(@PathVariable int batchId){
-		return new ResponseEntity<Long> (subTopicService.getNumberOfSubtopics(batchId),HttpStatus.OK);
+	public Long getNumberOfSubtopics(@PathVariable int batchId){
+		return subTopicService.getNumberOfSubtopics(batchId);
 	}
 	
 	/*
