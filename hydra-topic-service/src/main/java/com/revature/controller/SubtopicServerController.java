@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.revature.model.Batch;
+import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicStatus;
@@ -40,15 +42,16 @@ public class SubtopicServerController {
 		return subTopicService.findByBatchId(batchId);
 	}
 	
-	//Need to fix database thing
-	@GetMapping("/getStatus/{name}")
-	public SubtopicStatus getStatus(@PathVariable String name) {
-		return subTopicService.getStatus(name);
+	//Works
+	@GetMapping("/getSubtopicsByStatus/{name}")
+	public List<Subtopic> getStatus(@PathVariable String name) {
+		SubtopicStatus s=subTopicService.getStatus(name);
+		return subTopicService.getSubtopicsByStatus(s);
 	}
 	
-	//Do we need this?
+
 	@GetMapping("getNumberofSubtopics/{batchId}")
-	public  Long getNumberOfSubtopics(@PathVariable int batchId){
+	public Long getNumberOfSubtopics(@PathVariable int batchId){
 		return subTopicService.getNumberOfSubtopics(batchId);
 	}
 	
@@ -108,21 +111,25 @@ public class SubtopicServerController {
 
 	//Works
 	@GetMapping("findTop1ByBatchId/{batchId}")
+
 	public  List<Subtopic> findTop1ByBatchId(@PathVariable int batchId){
 		return subTopicService.findTop1ByBatchId(batchId);
-	}
+		}
 	
 	//Not sure how to test
+
 	@PostMapping("saveSubtopics")
 	public  List<Subtopic> saveSubtopics(@RequestBody List<Subtopic> subtopics){
 		return subTopicService.saveSubtopics(subtopics);
 	}
 	
 	//Working on it
-	/*@GetMapping("mapCurriculumSubtopicsToSubtopics")
-	public  <List<Subtopic>> mapCurriculumSubtopicstoSubtopics(@RequestBody Map<Integer, List<CurriculumSubtopic>> map, @RequestBody Batch batch ){
-		return  <List<Subtopic>> (subTopicService.mapCurriculumSubtopicsToSubtopics(map, batch);
-	}*/
+
+	@GetMapping("mapCurriculumSubtopicsToSubtopics/{batchid}")
+	public List<Subtopic> mapCurriculumSubtopicstoSubtopics(@RequestBody Map<Integer, List<CurriculumSubtopic>> map, @PathVariable int batchid ){
+		return subTopicService.mapCurriculumSubtopicsToSubtopics(map, batchid);
+	}
+
 }
 
 

@@ -17,4 +17,5 @@ public interface SubtopicNameRepository extends JpaRepository<SubtopicName, Inte
 	public SubtopicName findByName(String name);
 	public List<SubtopicName> findAll();
 	public List<SubtopicName> findByTypeId(int type);
+
 }
