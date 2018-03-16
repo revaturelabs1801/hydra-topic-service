@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.exception.CustomException;
+import com.revature.exception.NoContentException;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
 import com.revature.model.SubtopicType;
@@ -47,8 +47,6 @@ class TopicController {
 	@RequestMapping(value = "/All", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<SubtopicName> getAllUsers() {
-		System.out.println("Getting All");
-		System.out.println(sr.findAll());
 		return sr.findAll();
 	}
 
@@ -59,7 +57,6 @@ class TopicController {
 		try {
 			st = new ObjectMapper().readValue(jsonObj, Subtopic.class);
 		} catch (IOException e) {
-			System.out.println("Error");
 			throw new CustomException(e);
 		}
 
@@ -68,7 +65,6 @@ class TopicController {
 	
 	  @PostMapping("/Add")
 	  public void addTopicName(HttpServletRequest request) {
-		  System.out.println("i ghatee this");
 	    TopicName topic = new TopicName();
 	    topic.setName(request.getParameter("name"));
 	    topicService.addOrUpdateTopicName(topic);
@@ -99,7 +95,7 @@ class TopicController {
 	    	return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
 	    }
 	    else {
-	    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    	throw new NoContentException("No Content Added");
 	    }
 	  }
 
