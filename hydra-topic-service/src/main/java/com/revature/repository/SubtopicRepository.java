@@ -14,7 +14,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 @RepositoryRestResource
-public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
+public interface SubtopicRepository extends JpaRepository<Subtopic, Integer>{
 
 	/**
 	 * Counts the number of subtopics in the database by matching it with the
@@ -35,6 +35,7 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 	List<Subtopic> findTop1ByBatchid(int batchId);
 
 	List<Subtopic> findByBatchid(int batchId);
+	List<Subtopic> findByBatchid(int batchId, Pageable page);
 	void deleteByBatchid(int batchId);
 
 
