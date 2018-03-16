@@ -220,6 +220,9 @@ public class SubTopicService {
 	   * @author Sean Sung | (1712-dec10-java-Steve)
 	   */
 	  public boolean removeSubtopicFromBatch(int subtopicId) {
+		  if(!subtopicRepository.existsById(subtopicId)) {
+			  return false;
+		  }
 		  try {
 		  	  //subtopicRepository.delete(subtopicId);
 			  subtopicRepository.deleteById(subtopicId);
@@ -240,10 +243,13 @@ public class SubTopicService {
 	   */
 	  @Transactional
 	  public boolean removeAllSubtopicsFromBatch(int batchId) {
-		 //Need to do batch stuff
 		  try {
-			  subtopicRepository.deleteByBatchid(batchId);
-			  return true;
+			  int x=subtopicRepository.deleteByBatchid(batchId);
+			  System.out.println(x);
+			  if(x==0)
+				  return false;
+			  else		  
+				  return true;
 		  } catch(IllegalArgumentException e) {
 			  return false;
 		  } 
@@ -299,11 +305,12 @@ public class SubTopicService {
 					subtopic.setStatus(subStatus);
 					
 					//set date to the batch start date
-					Batch batch= RequestController.findBatchById(batchid);
-					System.out.println(batch);
+					//Batch batch= RequestController.findBatchById(batchid);
+					//System.out.println(batch);
 					
-					cal.setTime(batch.getStartDate());
-					
+					//cal.setTime(batch.getStartDate());
+					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+					cal.setTime(timestamp);
 					//set the time
 					cal.set(Calendar.HOUR_OF_DAY, randomNum);
 					cal.set(Calendar.MINUTE, 0);

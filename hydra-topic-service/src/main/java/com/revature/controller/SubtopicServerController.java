@@ -49,7 +49,7 @@ public class SubtopicServerController {
 		return subTopicService.getSubtopicsByStatus(s);
 	}
 	
-
+	//Works
 	@GetMapping("getNumberofSubtopics/{batchId}")
 	public Long getNumberOfSubtopics(@PathVariable int batchId){
 		return subTopicService.getNumberOfSubtopics(batchId);
