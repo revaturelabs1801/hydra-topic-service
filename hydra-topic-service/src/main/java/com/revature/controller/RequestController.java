@@ -32,19 +32,3 @@ public class RequestController {
 	
 }
 
-/*@RestController
-@RequestMapping(value = "")
-public class RequestController {
-	@Autowired
-	private static RestTemplate restTemplate;
-
-	public static Batch findBatchById(int batchId) {
-		System.out.println("Here");
-		return this.restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/50" /*+ batchId, Batch.class);
-		Batch batch = 
-		//Batch batch = restTemplate.getForObject("http://10.226.102.175:21038/api/v2/Batch/byid/50" + batchId , Batch.class);
-		System.out.println(batch);
-		return batch;
-	}
-
-}*/
