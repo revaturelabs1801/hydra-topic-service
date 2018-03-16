@@ -14,10 +14,13 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import com.revature.controller.RequestController;
 import com.revature.exception.CustomException;
 import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
@@ -32,6 +35,15 @@ import com.revature.repository.SubtopicTypeRepository;
 
 @Service
 public class SubTopicService {
+	
+		@LoadBalanced
+		@Bean
+		public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder){
+			return restTemplateBuilder.build();
+		} 
+	
+		@Autowired
+		private RestTemplate restTemplate;
 	
 	  @Autowired
 	  SubtopicRepository subtopicRepository;
@@ -62,7 +74,6 @@ public class SubTopicService {
 	    Timestamp ts = new Timestamp(time);
 
 	    //Need to do batch stuff
-	   // b = batchRepository.findByid(batch);
 	    st = subtopicNameRepository.findByid(subtopic);
 	    ss = subtopicStatusRepository.findByid(1);
 
@@ -220,6 +231,9 @@ public class SubTopicService {
 	   * @author Sean Sung | (1712-dec10-java-Steve)
 	   */
 	  public boolean removeSubtopicFromBatch(int subtopicId) {
+		  if(!subtopicRepository.existsById(subtopicId)) {
+			  return false;
+		  }
 		  try {
 		  	  //subtopicRepository.delete(subtopicId);
 			  subtopicRepository.deleteById(subtopicId);
@@ -240,10 +254,13 @@ public class SubTopicService {
 	   */
 	  @Transactional
 	  public boolean removeAllSubtopicsFromBatch(int batchId) {
-		 //Need to do batch stuff
 		  try {
-			  subtopicRepository.deleteByBatchid(batchId);
-			  return true;
+			  int x=subtopicRepository.deleteByBatchid(batchId);
+			  System.out.println(x);
+			  if(x==0)
+				  return false;
+			  else		  
+				  return true;
 		  } catch(IllegalArgumentException e) {
 			  return false;
 		  } 
@@ -299,11 +316,10 @@ public class SubTopicService {
 					subtopic.setStatus(subStatus);
 					
 					//set date to the batch start date
-					Batch batch= RequestController.findBatchById(batchid);
-					System.out.println(batch);
+					Batch b = restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/"+ batchid , Batch.class);
+
 					
-					cal.setTime(batch.getStartDate());
-					
+					cal.setTime(b.getStartDate());
 					//set the time
 					cal.set(Calendar.HOUR_OF_DAY, randomNum);
 					cal.set(Calendar.MINUTE, 0);
