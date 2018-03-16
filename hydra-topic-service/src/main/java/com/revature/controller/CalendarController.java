@@ -27,7 +27,7 @@ import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
 @RestController
-@RequestMapping("calendar/")
+@RequestMapping("api/v2/calendar")
 @CrossOrigin
 public class CalendarController {
 	@Autowired
