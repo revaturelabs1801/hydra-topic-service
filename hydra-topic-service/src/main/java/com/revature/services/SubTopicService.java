@@ -14,12 +14,14 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import com.revature.controller.RequestController;
 import com.revature.exception.CustomException;
-import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
 import com.revature.model.SubtopicName;
@@ -32,6 +34,15 @@ import com.revature.repository.SubtopicTypeRepository;
 
 @Service
 public class SubTopicService {
+	
+		@LoadBalanced
+		@Bean
+		public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder){
+			return restTemplateBuilder.build();
+		} 
+	
+		@Autowired
+		private RestTemplate restTemplate;
 	
 	  @Autowired
 	  SubtopicRepository subtopicRepository;
