@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.revature.model.Batch;
 import com.revature.model.CurriculumSubtopic;
 import com.revature.model.Subtopic;
@@ -23,6 +27,15 @@ import com.revature.services.TopicService;
 @RestController
 @RequestMapping("api/v2/subtopicService")
 public class SubtopicServerController {
+	
+	//@LoadBalanced
+	@Bean
+	public RestTemplate buildRestTemplate(RestTemplateBuilder restTemplateBuilder){
+		return restTemplateBuilder.build();
+	} 
+
+	@Autowired
+	private RestTemplate restTemplate;
 	
 
 	@Autowired
@@ -49,7 +62,7 @@ public class SubtopicServerController {
 		return subTopicService.getSubtopicsByStatus(s);
 	}
 	
-
+	//Works
 	@GetMapping("getNumberofSubtopics/{batchId}")
 	public Long getNumberOfSubtopics(@PathVariable int batchId){
 		return subTopicService.getNumberOfSubtopics(batchId);
@@ -61,6 +74,7 @@ public class SubtopicServerController {
 	 */
 	@GetMapping("getAllSubtopicNames")
 	public  List<SubtopicName> getAllSubtopics(){
+		//Batch batch = restTemplate.getForObject("http://HYDRA-BATCH-SERVICE/api/v2/Batch/byid/50" /*+ batchId*/ , Batch.class);
 		return  subTopicService.getAllSubtopics();
 	}
 	
@@ -131,6 +145,4 @@ public class SubtopicServerController {
 	}
 
 }
-
-
 
