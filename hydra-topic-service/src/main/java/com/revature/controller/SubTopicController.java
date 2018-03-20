@@ -160,7 +160,6 @@ public class SubTopicController {
 		 * @param batchId
 		 * @return HttpStatus - returns true, status INTERNAL_SERVER_ERROR otherwise
 		 */
-		//Works
 		@PostMapping("removebybatch/{batchId}")
 		public boolean removeSubtopicByBatch(@PathVariable int batchId) {
 			if(subTopicService.removeAllSubtopicsFromBatch(batchId)) {
