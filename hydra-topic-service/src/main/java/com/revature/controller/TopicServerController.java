@@ -27,11 +27,23 @@ public class TopicServerController {
 		this.topicService.addTopic(topicNameId, batch, weekNumber);
 	}
 
+	//need to work on this
+	/*@PostMapping("/getTopicByBatch/{batch}")
+	public <List<TopicWeek>> getTopicByBatch(@PathVariable Batch batch) {
+		return new <List<TopicWeek>>(this.topicService.getTopicByBatch(batch),HttpStatus.OK);
+	}*/
 
 	//This works
 	@PostMapping("/getTopicByBatchId/{batchId}")
+<<<<<<< HEAD
+	public @ResponseBody ResponseEntity<List<TopicWeek>> getTopicByBatchId(@PathVariable int batchId) {
+		List<TopicWeek> t= this.topicService.getTopicByBatchId(batchId);
+		//System.out.println(t);
+		return new ResponseEntity<List<TopicWeek>>(t,HttpStatus.OK);
+=======
 	public List<TopicWeek> getTopicByBatchId(@PathVariable int batchId) {
 		return this.topicService.getTopicByBatchId(batchId);
+>>>>>>> c26a9f9eee82c34e5cd923ec6d69a49be61c11c0
 
 	}
 
