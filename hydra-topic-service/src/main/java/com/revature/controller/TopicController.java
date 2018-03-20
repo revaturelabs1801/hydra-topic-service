@@ -82,7 +82,7 @@ import com.revature.services.TopicService;
 
 @RestController
 @RequestMapping("/api/v2/Topics/")
-class TopicController {
+public class TopicController {
 
 	@Autowired
 	TopicService topicService;
@@ -93,6 +93,17 @@ class TopicController {
 	@Autowired
 	SubtopicNameRepository sr;
 	
+	public TopicController() {
+		super();
+	}
+
+	public TopicController(TopicService topicService, SubTopicService subserv, SubtopicNameRepository sr) {
+		super();
+		this.topicService = topicService;
+		this.subserv = subserv;
+		this.sr = sr;
+	}
+
 	@GetMapping("/")
 	public TopicName home(){
 		System.out.println("Getting here");

@@ -12,54 +12,63 @@ import com.revature.repository.BatchRepository;
 import com.revature.repository.TopicNameRepository;
 import com.revature.repository.TopicWeekRepository;
 
-
-
 @Service
 public class TopicService {
 
-	  @Autowired
-	  TopicWeekRepository topicWeekRepository;
+	@Autowired
+	TopicWeekRepository topicWeekRepository;
 
-	 /*@Autowired
-	  BatchRepository batchRepistory;*/
+	/*
+	 * @Autowired BatchRepository batchRepistory;
+	 */
 
-	  @Autowired
-	  TopicNameRepository topicNameRepository;
+	@Autowired
+	TopicNameRepository topicNameRepository;
 
-	  public void addTopic(int topicNameId, int batch, int weekNumber) {
-	    TopicWeek topic = new TopicWeek();
-	    Batch b;
-	    TopicName topicName;
+	public TopicService() {
+		super();
+	}
 
-	    //b = batchRepistory.findByid(batch);
-	    topicName = topicNameRepository.findByid(topicNameId);
+	public TopicService(TopicWeekRepository topicWeekRepository, TopicNameRepository topicNameRepository) {
+		super();
+		this.topicWeekRepository = topicWeekRepository;
+		this.topicNameRepository = topicNameRepository;
+	}
 
-	    //topic.setBatch(b);
-	    topic.setTopic(topicName);
-	    topic.setWeekNumber(weekNumber);
+	public void addTopic(int topicNameId, int batch, int weekNumber) {
+		TopicWeek topic = new TopicWeek();
+		Batch b;
+		TopicName topicName;
 
-	    topicWeekRepository.save(topic);
-	  }
+		// b = batchRepistory.findByid(batch);
+		topicName = topicNameRepository.findByid(topicNameId);
 
-	  public List<TopicWeek> getTopicByBatch(Batch batch) {
-	    return topicWeekRepository.findByBatch(batch);
-	  }
+		// topic.setBatch(b);
+		topic.setTopic(topicName);
+		topic.setWeekNumber(weekNumber);
 
-	  /*public List<TopicWeek> getTopicByBatchId(int batchId) {
-	    return topicWeekRepository.findByBatch(batchRepistory.findByid(batchId));
-	  }*/
+		topicWeekRepository.save(topic);
+	}
 
-	  public List<TopicName> getTopics() {
-	    return topicNameRepository.findAll();
-	  }
+	public List<TopicWeek> getTopicByBatch(Batch batch) {
+		return topicWeekRepository.findByBatch(batch);
+	}
 
-	  public void addOrUpdateTopicName(TopicName topic) {
-	    topicNameRepository.save(topic);
-	  }
+	/*
+	 * public List<TopicWeek> getTopicByBatchId(int batchId) { return
+	 * topicWeekRepository.findByBatch(batchRepistory.findByid(batchId)); }
+	 */
 
-	  public TopicName getTopicName(int id) {
-	    return topicNameRepository.findByid(id);
-	  }
+	public List<TopicName> getTopics() {
+		return topicNameRepository.findAll();
+	}
 
-	
+	public void addOrUpdateTopicName(TopicName topic) {
+		topicNameRepository.save(topic);
+	}
+
+	public TopicName getTopicName(int id) {
+		return topicNameRepository.findByid(id);
+	}
+
 }

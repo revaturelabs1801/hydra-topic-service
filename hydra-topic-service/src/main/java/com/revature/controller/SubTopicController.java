@@ -34,6 +34,16 @@ public class SubTopicController {
 	@Autowired
 	SubTopicService subTopicService;
 
+	public SubTopicController() {
+		super();
+	}
+	
+	public SubTopicController(TopicService topicService, SubTopicService subTopicService) {
+		super();
+		this.topicService = topicService;
+		this.subTopicService = subTopicService;
+	}
+
 	/*
 	 * Dummy rest call
 	 */
