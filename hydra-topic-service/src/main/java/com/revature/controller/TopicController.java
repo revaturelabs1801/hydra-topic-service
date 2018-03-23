@@ -28,22 +28,32 @@ import com.revature.repository.SubtopicNameRepository;
 import com.revature.services.SubTopicService;
 import com.revature.services.TopicService;
 
-
 @RestController
 @RequestMapping("/api/v2/Topics/")
 @CrossOrigin
-class TopicController {
+public class TopicController {
 
 	@Autowired
 	TopicService topicService;
-	
+
 	@Autowired
 	SubTopicService subserv;
 
 	@Autowired
 	SubtopicNameRepository sr;
-	
-	
+
+	public TopicController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public TopicController(TopicService topicService, SubTopicService subserv, SubtopicNameRepository sr) {
+		super();
+		this.topicService = topicService;
+		this.subserv = subserv;
+		this.sr = sr;
+	}
+
 	@RequestMapping(value = "/All", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<SubtopicName> getAllUsers() {
@@ -62,42 +72,41 @@ class TopicController {
 
 		subserv.updateSubtopic(st);
 	}
-	
-	  @PostMapping("/Add")
-	  public void addTopicName(HttpServletRequest request) {
-	    TopicName topic = new TopicName();
-	    topic.setName(request.getParameter("name"));
-	    topicService.addOrUpdateTopicName(topic);
-	  }
-	  
-	  @PostMapping("/addSubtopicName")
-	  public void addSubTopicName(HttpServletRequest request) {
-	    SubtopicType type = subserv.getSubtopicType(Integer.parseInt(request.getParameter("typeId")));
-	    TopicName topic = topicService.getTopicName(Integer.parseInt(request.getParameter("topicId")));
-	    SubtopicName subtopic = new SubtopicName(request.getParameter("subtopicName"), topic, type);
-	    subserv.addOrUpdateSubtopicName(subtopic);
-	  }
-	  
-	  /**
-	   * @author Cristian Hermida, Charlie Harris / Batch 1712-dec10-java-steve
-	   * @param request
-	   * 			- I request must have to have the name of the topic.
-	   * @return The added topic (if any) as a TopicName and HttpStatus
-	   * 			- status of 201 CREATED if a Topic is created or updated.
-	   * 			- status of 204 NO_CONTENT is a Topic is not created.
-	   */
-	  @PostMapping("add/{newTopicName}")
-	  public ResponseEntity<TopicName> addTopicName(@PathVariable String newTopicName) {
-	    TopicName topic = new TopicName();
-	    topic.setName(newTopicName);
-	    System.out.println(topic);
-	    TopicName topicUpdate = topicService.addOrUpdateTopicName(topic);
-	    if(topicUpdate != null) {
-	    	return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
-	    }
-	    else {
-	    	throw new NoContentException("No Content Added");
-	    }
-	  }
+
+	@PostMapping("/Add")
+	public void addTopicName(HttpServletRequest request) {
+		TopicName topic = new TopicName();
+		topic.setName(request.getParameter("name"));
+		topicService.addOrUpdateTopicName(topic);
+	}
+
+	@PostMapping("/addSubtopicName")
+	public void addSubTopicName(HttpServletRequest request) {
+		SubtopicType type = subserv.getSubtopicType(Integer.parseInt(request.getParameter("typeId")));
+		TopicName topic = topicService.getTopicName(Integer.parseInt(request.getParameter("topicId")));
+		SubtopicName subtopic = new SubtopicName(request.getParameter("subtopicName"), topic, type);
+		subserv.addOrUpdateSubtopicName(subtopic);
+	}
+
+	/**
+	 * @author Cristian Hermida, Charlie Harris / Batch 1712-dec10-java-steve
+	 * @param request
+	 *            - I request must have to have the name of the topic.
+	 * @return The added topic (if any) as a TopicName and HttpStatus - status of
+	 *         201 CREATED if a Topic is created or updated. - status of 204
+	 *         NO_CONTENT is a Topic is not created.
+	 */
+	@PostMapping("add/{newTopicName}")
+	public ResponseEntity<TopicName> addTopicName(@PathVariable String newTopicName) {
+		TopicName topic = new TopicName();
+		topic.setName(newTopicName);
+		System.out.println(topic);
+		TopicName topicUpdate = topicService.addOrUpdateTopicName(topic);
+		if (topicUpdate != null) {
+			return new ResponseEntity<TopicName>(topicUpdate, HttpStatus.CREATED);
+		} else {
+			throw new NoContentException("No Content Added");
+		}
+	}
 
 }
